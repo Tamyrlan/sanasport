@@ -1284,7 +1284,7 @@ a {
   border-radius: 999px;
   background: #e3f5eb;
   color: #07844e;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 1px;
 }
 .directions-heading h1 {
@@ -1657,6 +1657,17 @@ a {
 }
 .shop-heading {
   text-align: center;
+}
+.shop-heading .eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 16px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #e5f0ff;
+  color: #2774d1;
+  font-size: 13px;
+  letter-spacing: 1px;
 }
 .shop-heading h1 {
   margin: 14px 0 8px;
@@ -3129,6 +3140,22 @@ body.is-leaving > :not(
   ) {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+:is(.direction-modal, .shop-modal, .parent-modal, .news-modal).is-closing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+:is(.direction-modal, .shop-modal, .parent-modal, .news-modal).is-closing
+  :is(
+    .direction-modal__dialog,
+    .shop-modal__dialog,
+    .parent-modal__dialog,
+    .news-modal__dialog
+  ) {
+  opacity: 0;
+  transform: translateY(4%) scale(0.96);
 }
 
 @media (prefers-reduced-motion: reduce) {

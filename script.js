@@ -153,6 +153,30 @@ const directionTabs = document.querySelectorAll(".direction-tab");
 const directionCards = document.querySelectorAll(".direction-card");
 const directionModal = document.querySelector("#direction-modal");
 
+function openModal(modal) {
+  if (!modal) return;
+  modal.classList.remove("is-closing");
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal(modal) {
+  if (!modal || !modal.classList.contains("is-open")) return;
+
+  modal.classList.remove("is-open");
+  modal.classList.add("is-closing");
+  modal.setAttribute("aria-hidden", "true");
+  modal.addEventListener(
+    "transitionend",
+    (event) => {
+      if (event.target === modal && event.propertyName === "opacity") {
+        modal.classList.remove("is-closing");
+      }
+    },
+    { once: true },
+  );
+}
+
 function revealDirectionCards(cards) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -195,9 +219,7 @@ directionTabs.forEach((tab) => {
 });
 
 function closeDirectionModal() {
-  if (!directionModal) return;
-  directionModal.classList.remove("is-open");
-  directionModal.setAttribute("aria-hidden", "true");
+  closeModal(directionModal);
 }
 
 directionCards.forEach((card) => {
@@ -208,8 +230,7 @@ directionCards.forEach((card) => {
       card.dataset.description;
     document.querySelector("#modal-image").style.backgroundImage =
       `url("${card.dataset.image}")`;
-    directionModal.classList.add("is-open");
-    directionModal.setAttribute("aria-hidden", "false");
+    openModal(directionModal);
   });
 });
 
@@ -243,9 +264,7 @@ shopFilters.forEach((filter) => {
 });
 
 function closeShopModal() {
-  if (!shopModal) return;
-  shopModal.classList.remove("is-open");
-  shopModal.setAttribute("aria-hidden", "true");
+  closeModal(shopModal);
 }
 
 productCards.forEach((card) => {
@@ -258,8 +277,7 @@ productCards.forEach((card) => {
       `shop-modal__image ${card.querySelector(".product-image").className.replace("product-image", "")}`;
     const sizeSelect = document.querySelector("#shop-modal-size");
     sizeSelect.innerHTML = `<option>${card.dataset.size}</option><option>Уточнить размер</option>`;
-    shopModal.classList.add("is-open");
-    shopModal.setAttribute("aria-hidden", "false");
+    openModal(shopModal);
   });
 });
 
@@ -274,9 +292,7 @@ const newsCards = document.querySelectorAll(".news-card");
 const newsModal = document.querySelector("#news-modal");
 
 function closeNewsModal() {
-  if (!newsModal) return;
-  newsModal.classList.remove("is-open");
-  newsModal.setAttribute("aria-hidden", "true");
+  closeModal(newsModal);
 }
 
 newsCards.forEach((card) => {
@@ -289,8 +305,7 @@ newsCards.forEach((card) => {
       card.dataset.newsText;
     document.querySelector("#news-modal-image").style.backgroundImage =
       `url("${card.dataset.newsImage}")`;
-    newsModal.classList.add("is-open");
-    newsModal.setAttribute("aria-hidden", "false");
+    openModal(newsModal);
   });
 });
 
@@ -305,9 +320,7 @@ const parentArticles = document.querySelectorAll(".parent-article");
 const parentModal = document.querySelector("#parent-modal");
 
 function closeParentModal() {
-  if (!parentModal) return;
-  parentModal.classList.remove("is-open");
-  parentModal.setAttribute("aria-hidden", "true");
+  closeModal(parentModal);
 }
 
 parentArticles.forEach((article) => {
@@ -318,8 +331,7 @@ parentArticles.forEach((article) => {
       article.dataset.parentText;
     document.querySelector("#parent-modal-image").style.backgroundImage =
       `url("${article.dataset.parentImage}")`;
-    parentModal.classList.add("is-open");
-    parentModal.setAttribute("aria-hidden", "false");
+    openModal(parentModal);
   });
 });
 
