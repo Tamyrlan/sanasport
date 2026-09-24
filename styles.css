@@ -1207,24 +1207,24 @@ a {
   letter-spacing: 1px;
 }
 .tariffs-heading .eyebrow {
-  background: #e5f0ff;
-  color: #2774d1;
+  background: #fde1e2;
+  color: #d8101a;
 }
 .parents-heading .eyebrow {
-  background: #fde1e2;
-  color: #d8101a;
+  background: #e3f5eb;
+  color: #07844e;
 }
 .rental-heading .eyebrow {
-  background: #ededed;
-  color: #2c2c2c;
-}
-.contacts-copy .eyebrow {
   background: #e5f0ff;
   color: #2774d1;
 }
-.news-heading .eyebrow {
+.contacts-copy .eyebrow {
   background: #fde1e2;
   color: #d8101a;
+}
+.news-heading .eyebrow {
+  background: #fff0bf;
+  color: #9b7100;
 }
 .tariffs-heading h1 {
   margin: 14px 0 8px;
@@ -1356,8 +1356,8 @@ a {
   margin-bottom: 16px;
   padding: 7px 11px;
   border-radius: 999px;
-  background: #e3f5eb;
-  color: #07844e;
+  background: #e5f0ff;
+  color: #2774d1;
   font-size: 13px;
   letter-spacing: 1px;
 }
@@ -1738,8 +1738,8 @@ a {
   margin-bottom: 18px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: #2774d1;
-  color: #fff;
+  background: #e3f5eb;
+  color: #07844e;
   font-size: 14px;
   letter-spacing: 1.2px;
 }
