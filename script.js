@@ -153,15 +153,43 @@ const directionTabs = document.querySelectorAll(".direction-tab");
 const directionCards = document.querySelectorAll(".direction-card");
 const directionModal = document.querySelector("#direction-modal");
 
+function revealDirectionCards(cards) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const easing = getComputedStyle(document.documentElement)
+    .getPropertyValue("--ease-out")
+    .trim();
+
+  cards.forEach((card, index) => {
+    card.classList.add("is-revealed");
+    card.directionFilterAnimation?.cancel();
+    card.directionFilterAnimation = card.animate(
+      [
+        { opacity: 0, transform: "translateY(8px)" },
+        { opacity: 1, transform: "translateY(0)" },
+      ],
+      {
+        duration: 160,
+        delay: Math.min(index, 3) * 30,
+        easing,
+      },
+    );
+  });
+}
+
 directionTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     directionTabs.forEach((item) => item.classList.remove("is-active"));
     tab.classList.add("is-active");
+    const category = tab.dataset.directionFilter;
     directionCards.forEach((card) =>
       card.classList.toggle(
         "is-hidden",
-        card.dataset.category !== tab.dataset.directionFilter,
+        category !== "all" && card.dataset.category !== category,
       ),
+    );
+    revealDirectionCards(
+      [...directionCards].filter((card) => !card.classList.contains("is-hidden")),
     );
   });
 });
