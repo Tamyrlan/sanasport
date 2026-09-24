@@ -2902,13 +2902,7 @@ a {
 }
 
 /* Shared physical feedback for buttons and button-like links. */
-:is(
-  button,
-  .button,
-  .tariff-card__button,
-  .shop-order-button,
-  .modal-cta
-) {
+:is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta) {
   transform: translateY(0) scale(1);
   transition:
     transform var(--button-motion-duration) var(--ease-out),
@@ -2918,7 +2912,13 @@ a {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):hover {
+  :is(
+    button,
+    .button,
+    .tariff-card__button,
+    .shop-order-button,
+    .modal-cta
+  ):hover {
     transform: translateY(-1px) scale(1);
   }
 
@@ -2927,12 +2927,24 @@ a {
   }
 }
 
-:is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):active {
+:is(
+  button,
+  .button,
+  .tariff-card__button,
+  .shop-order-button,
+  .modal-cta
+):active {
   transform: translateY(1px) scale(0.97);
   transition-duration: 100ms;
 }
 
-:is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):focus-visible {
+:is(
+  button,
+  .button,
+  .tariff-card__button,
+  .shop-order-button,
+  .modal-cta
+):focus-visible {
   outline: 3px solid color-mix(in srgb, var(--blue) 38%, transparent);
   outline-offset: 3px;
 }
@@ -2942,7 +2954,95 @@ a {
     transition-duration: 100ms;
   }
 
-  :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):active {
+  :is(
+    button,
+    .button,
+    .tariff-card__button,
+    .shop-order-button,
+    .modal-cta
+  ):active {
     transform: scale(0.99);
+  }
+}
+
+:root {
+  --page-transition-duration: 600ms;
+  --page-transition-blur: 12px;
+  --page-transition-scale-out: 1.04;
+  --page-transition-scale-in: 0.96;
+  --page-transition-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-transition-ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@keyframes page-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--page-transition-blur));
+    transform: scale(var(--page-transition-scale-in));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes page-blur-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    filter: blur(var(--page-transition-blur));
+    transform: scale(var(--page-transition-scale-out));
+  }
+}
+
+body {
+  animation: page-blur-in var(--page-transition-duration)
+    var(--page-transition-ease-out) both;
+  will-change: opacity, transform, filter;
+}
+
+body.is-leaving {
+  animation: page-blur-out var(--page-transition-duration)
+    var(--page-transition-ease-in) both;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  body.is-leaving {
+    animation: none !important;
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(28px) scale(0.98);
+  transition:
+    opacity 650ms var(--page-transition-ease-out),
+    filter 650ms var(--page-transition-ease-out),
+    transform 650ms var(--page-transition-ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
   }
 }
