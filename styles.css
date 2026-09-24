@@ -188,6 +188,14 @@ a {
 .nav a:nth-child(4n + 1) {
   --nav-color: var(--blue);
 }
+.nav a.is-current {
+  color: #fff !important;
+  background: var(--nav-color);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--nav-color) 32%, transparent);
+}
+.nav a:nth-child(4n + 2).is-current {
+  color: #242424 !important;
+}
 @media (prefers-reduced-motion: reduce) {
   .nav a,
   .nav a::after {
@@ -1315,6 +1323,7 @@ a {
   gap: 30px 20px;
 }
 .direction-card {
+  height: 100%;
   overflow: hidden;
   border: 1px solid #d4d4d4;
   border-radius: 18px;
@@ -1361,11 +1370,13 @@ a {
   flex-direction: column;
 }
 .direction-card__body h2 {
+  min-height: 46px;
   margin: 0 0 9px;
   font-size: 19px;
   line-height: 1.2;
 }
 .direction-card__body p {
+  min-height: 30px;
   margin: 0 0 12px;
   color: #777;
   font-size: 11px;
@@ -1374,10 +1385,14 @@ a {
 .direction-card__body:after {
   content: "";
   border-top: 1px solid #ddd;
+  margin-top: auto;
   margin-bottom: 11px;
 }
 .choose-direction {
-  align-self: flex-start;
+  align-self: stretch;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
   border: 0;
   border-radius: 22px;
   padding: 12px 19px;
@@ -1565,6 +1580,10 @@ a {
   }
   .directions-heading p {
     font-size: 14px;
+  }
+  .direction-card__body h2,
+  .direction-card__body p {
+    min-height: 0;
   }
   .direction-tabs {
     gap: 4px;
@@ -2944,5 +2963,55 @@ a {
 
   :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):active {
     transform: scale(0.99);
+  }
+}
+
+/* Current section is visible at a glance in the main navigation. */
+.nav a.is-current {
+  transform: none;
+}
+
+/* Modal cards: a brief transition makes the state change easier to follow. */
+:is(.direction-modal, .shop-modal, .parent-modal, .news-modal) {
+  transition: opacity 250ms var(--ease-out);
+}
+
+:is(
+  .direction-modal__dialog,
+  .shop-modal__dialog,
+  .parent-modal__dialog,
+  .news-modal__dialog
+) {
+  opacity: 0;
+  transform: translateY(4%) scale(0.96);
+  transition:
+    opacity 250ms var(--ease-out),
+    transform 250ms var(--ease-out);
+}
+
+:is(.direction-modal, .shop-modal, .parent-modal, .news-modal).is-open
+  :is(
+    .direction-modal__dialog,
+    .shop-modal__dialog,
+    .parent-modal__dialog,
+    .news-modal__dialog
+  ) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.direction-modal, .shop-modal, .parent-modal, .news-modal) {
+    transition-duration: 150ms;
+  }
+
+  :is(
+    .direction-modal__dialog,
+    .shop-modal__dialog,
+    .parent-modal__dialog,
+    .news-modal__dialog
+  ) {
+    transform: none;
+    transition: opacity 150ms ease;
   }
 }
