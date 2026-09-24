@@ -8,6 +8,8 @@
   --green: #00a64f;
   --soft: #f1f1f1;
   --dark: #292929;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --button-motion-duration: 160ms;
 }
 * {
   box-sizing: border-box;
@@ -2897,4 +2899,50 @@ a {
   height: auto;
   max-height: 52px;
   object-fit: contain;
+}
+
+/* Shared physical feedback for buttons and button-like links. */
+:is(
+  button,
+  .button,
+  .tariff-card__button,
+  .shop-order-button,
+  .modal-cta
+) {
+  transform: translateY(0) scale(1);
+  transition:
+    transform var(--button-motion-duration) var(--ease-out),
+    background-color var(--button-motion-duration) ease,
+    color var(--button-motion-duration) ease,
+    opacity var(--button-motion-duration) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):hover {
+    transform: translateY(-1px) scale(1);
+  }
+
+  :is(.button, .tariff-card__button, .shop-order-button, .modal-cta):hover {
+    transform: translateY(-2px) scale(1);
+  }
+}
+
+:is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):active {
+  transform: translateY(1px) scale(0.97);
+  transition-duration: 100ms;
+}
+
+:is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 38%, transparent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta) {
+    transition-duration: 100ms;
+  }
+
+  :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta):active {
+    transform: scale(0.99);
+  }
 }
