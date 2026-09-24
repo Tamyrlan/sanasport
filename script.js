@@ -6,8 +6,8 @@ const defaultContent = {
   heroDescription: 'Более 20 кружков спорта, творчества и образования\nна 10 000 м². Один центр — весь день ребёнка.',
   address: 'г. Астана, ул. Кажымукана, 5',
   phone: '+7 (747) 094 71 97',
-  heroImage: '',
-  aboutImage: ''
+  heroImage: 'images/placeholder.png',
+  aboutImage: 'images/waitingzone.png'
 };
 
 menuToggle.addEventListener('click', () => nav.classList.toggle('is-open'));
@@ -40,8 +40,10 @@ function applyContent() {
   const phone = document.querySelector('#site-phone');
   phone.textContent = content.phone;
   phone.href = `tel:${content.phone.replace(/[^\d+]/g, '')}`;
-  document.querySelector('.visual--building').style.backgroundImage = content.heroImage ? `url("${content.heroImage}")` : '';
-  document.querySelector('.visual--lounge').style.backgroundImage = content.aboutImage ? `url("${content.aboutImage}")` : '';
+  const heroImage = content.heroImage && !content.heroImage.includes('Hero image placeholder.png') ? content.heroImage : defaultContent.heroImage;
+  document.querySelector('.visual--building img').src = heroImage;
+  const aboutImage = content.aboutImage || defaultContent.aboutImage;
+  document.querySelector('.visual--lounge img').src = aboutImage;
 }
 
 function fillAdminForm() {
