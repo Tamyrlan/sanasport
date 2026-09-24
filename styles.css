@@ -1207,14 +1207,17 @@ a {
   letter-spacing: 1px;
 }
 .tariffs-heading .eyebrow {
-  background: #fff0bf;
-  color: #9b7100;
+  background: #e5f0ff;
+  color: #2774d1;
 }
 .parents-heading .eyebrow {
-  background: #e3f5eb;
-  color: #07844e;
+  background: #fde1e2;
+  color: #d8101a;
 }
-.rental-heading .eyebrow,
+.rental-heading .eyebrow {
+  background: #ededed;
+  color: #2c2c2c;
+}
 .contacts-copy .eyebrow {
   background: #e5f0ff;
   color: #2774d1;
