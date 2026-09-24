@@ -1661,17 +1661,17 @@ a {
 .shop-heading .eyebrow {
   display: inline-flex;
   width: fit-content;
-  margin-bottom: 16px;
-  padding: 7px 13px;
+  margin-bottom: 18px;
+  padding: 9px 16px;
   border-radius: 999px;
-  background: #e5f0ff;
-  color: #2774d1;
-  font-size: 13px;
-  letter-spacing: 1px;
+  background: #2774d1;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 1.2px;
 }
 .shop-heading h1 {
   margin: 14px 0 8px;
-  font-size: 42px;
+  font-size: 48px;
   line-height: 1.15;
   letter-spacing: -1.5px;
 }
