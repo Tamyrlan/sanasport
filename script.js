@@ -74,12 +74,14 @@ document.querySelectorAll("#faq details").forEach((details) => {
     );
 
     currentAnimation.onfinish = () => {
+      const heightAnimation = currentAnimation;
       const contentAnimation = currentContentAnimation;
       currentAnimation = undefined;
       currentContentAnimation = undefined;
       details.open = shouldOpen;
       details.style.height = "";
       answer.style.opacity = "";
+      heightAnimation?.cancel();
       contentAnimation?.cancel();
       delete details.dataset.faqClosing;
     };
