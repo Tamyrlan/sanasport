@@ -430,6 +430,17 @@ a {
   align-items: center;
   gap: 56px;
 }
+.about .eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 18px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: #fff0bf;
+  color: #9b7100;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
 .visual--lounge {
   height: 350px;
   background: linear-gradient(130deg, #edf5fb, #cae9f1 55%, #ff9426);
