@@ -752,6 +752,7 @@ a {
 }
 .tab[data-trainer-filter="education"] {
   --trainer-tab-color: var(--red);
+  width: 128px;
 }
 .tab[data-trainer-filter="creative"] {
   --trainer-tab-color: var(--blue);
