@@ -1582,9 +1582,6 @@ a {
   background-size: cover;
   position: relative;
 }
-.direction-card__image:has(+ .direction-card__body) {
-  background-image: var(--card-image);
-}
 .direction-card__image span {
   position: absolute;
   top: 12px;
