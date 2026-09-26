@@ -6,6 +6,8 @@ document.querySelectorAll(".topbar .social").forEach((social) => {
   social.innerHTML =
     '<a class="social__link social__link--whatsapp" href="https://wa.me/77470947197" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a>';
 });
+
+document.querySelector("#faq details[open]")?.removeAttribute("open");
 const defaultContent = {
   heroTitle: "Sana Sport — Семейный\nспортивный центр",
   heroDescription:

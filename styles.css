@@ -798,6 +798,10 @@ a {
   padding: 17px 21px;
 }
 .faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   font-weight: 800;
   cursor: pointer;
   list-style: none;
@@ -806,9 +810,51 @@ a {
   display: none;
 }
 .faq summary b {
-  float: right;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #fde1e2;
   color: var(--red);
-  font-size: 18px;
+  font-size: 0;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms ease,
+    color 160ms ease;
+}
+.faq summary b::before {
+  content: "+";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+}
+.faq details[open] summary b {
+  transform: rotate(180deg);
+  background: var(--red);
+  color: #fff;
+}
+.faq details[open] summary b::before {
+  content: "−";
+}
+@media (hover: hover) and (pointer: fine) {
+  .faq summary:hover b {
+    background: #f8c8cb;
+  }
+  .faq details[open] summary:hover b {
+    background: #c80d17;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq summary b {
+    transition:
+      background-color 100ms ease,
+      color 100ms ease;
+  }
+  .faq details[open] summary b {
+    transform: none;
+  }
 }
 .faq p {
   color: var(--muted);
