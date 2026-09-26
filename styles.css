@@ -712,52 +712,78 @@ a {
   margin: 24px 0;
 }
 .tabs .tab {
+  --trainer-tab-color: var(--blue);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  min-height: 42px;
   border: 0;
-  background: var(--trainer-tab-surface);
-  color: var(--trainer-tab-color);
-  padding: 10px 20px;
-  border-radius: 25px;
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 999px;
+  line-height: 1.15;
   font: 700 14px Manrope;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--trainer-tab-color) 18%, transparent);
   transition:
-    transform var(--button-motion-duration) var(--ease-out),
-    background-color var(--button-motion-duration) ease,
-    color var(--button-motion-duration) ease,
-    box-shadow var(--button-motion-duration) ease;
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.tabs .tab::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 0;
+  content: "";
+  border-radius: inherit;
+  background: var(--trainer-tab-color);
+  transition: width 0.3s ease;
 }
 .tab[data-trainer-filter="all"] {
-  --trainer-tab-color: #9b7100;
-  --trainer-tab-surface: #fff0bf;
+  --trainer-tab-color: var(--yellow);
 }
 .tab[data-trainer-filter="sport"] {
-  --trainer-tab-color: #07844e;
-  --trainer-tab-surface: #e3f5eb;
+  --trainer-tab-color: var(--green);
 }
 .tab[data-trainer-filter="education"] {
-  --trainer-tab-color: #d8101a;
-  --trainer-tab-surface: #fde1e2;
+  --trainer-tab-color: var(--red);
 }
 .tab[data-trainer-filter="creative"] {
-  --trainer-tab-color: #2774d1;
-  --trainer-tab-surface: #e5f0ff;
+  --trainer-tab-color: var(--blue);
 }
 .tab.is-active {
   color: #fff;
   background: var(--trainer-tab-color);
-  box-shadow: 0 7px 14px color-mix(in srgb, var(--trainer-tab-color) 24%, transparent);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--trainer-tab-color) 32%, transparent);
 }
 .tab[data-trainer-filter="all"].is-active {
-  color: var(--ink);
+  color: #242424;
 }
 @media (hover: hover) and (pointer: fine) {
   .tab:hover {
-    background: var(--trainer-tab-color);
     color: #fff;
-    box-shadow: 0 7px 14px color-mix(in srgb, var(--trainer-tab-color) 24%, transparent);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--trainer-tab-color) 35%, transparent);
+    transform: translateY(-2px);
+  }
+  .tab:hover::after {
+    width: 100%;
   }
   .tab[data-trainer-filter="all"]:hover {
-    color: var(--ink);
+    color: #242424;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tabs .tab,
+  .tabs .tab::after {
+    transition: none;
+  }
+  .tab:hover {
+    transform: none;
   }
 }
 .trainer-grid article.is-hidden {
