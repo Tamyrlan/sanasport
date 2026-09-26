@@ -8,6 +8,54 @@ document.querySelectorAll(".topbar .social").forEach((social) => {
 });
 
 document.querySelector("#faq details[open]")?.removeAttribute("open");
+
+document.querySelectorAll("#faq details").forEach((details) => {
+  const summary = details.querySelector("summary");
+  if (!summary) return;
+
+  let currentAnimation;
+
+  const finishAnimation = (shouldStayOpen) => {
+    currentAnimation?.cancel();
+    currentAnimation = undefined;
+    details.open = shouldStayOpen;
+    details.style.height = "";
+  };
+
+  summary.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const isClosing = details.dataset.faqClosing === "true";
+    if (currentAnimation) finishAnimation(!isClosing);
+
+    const startHeight = details.offsetHeight;
+    const shouldOpen = !details.open || isClosing;
+    delete details.dataset.faqClosing;
+
+    if (shouldOpen) {
+      details.open = true;
+    } else {
+      details.dataset.faqClosing = "true";
+      details.open = false;
+    }
+
+    const endHeight = details.offsetHeight;
+    details.open = true;
+    details.style.height = `${startHeight}px`;
+
+    currentAnimation = details.animate(
+      { height: [`${startHeight}px`, `${endHeight}px`] },
+      { duration: 200, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
+    );
+
+    currentAnimation.onfinish = () => {
+      currentAnimation = undefined;
+      details.open = shouldOpen;
+      details.style.height = "";
+      delete details.dataset.faqClosing;
+    };
+  });
+});
 const defaultContent = {
   heroTitle: "Sana Sport — Семейный\nспортивный центр",
   heroDescription:
