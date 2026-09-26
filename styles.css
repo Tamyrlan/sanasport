@@ -3006,6 +3006,47 @@ a {
 .news-image--tennis {
   background-image: url("https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1000&q=85");
 }
+
+/* Local photography for all catalogue cards. */
+.direction-image--football { background-image: url("images/football.png"); }
+.direction-image--volley { background-image: url("images/volleyball.png"); }
+.direction-image--basket { background-image: url("images/basketball.png"); }
+.direction-image--jiujitsu,
+.direction-image--judo { background-image: url("images/judo.png"); }
+.direction-card[data-name="Джиу-джитсу"] .direction-card__image { background-image: url("images/jiujitsu.png"); }
+.direction-image--chess { background-image: url("images/chess.png"); }
+.direction-image--tennis { background-image: url("images/tennis.png"); }
+.direction-image--boxing,
+.direction-image--muay { background-image: url("images/box.png"); }
+.direction-image--karate { background-image: url("images/karate.png"); }
+.direction-image--taekwondo { background-image: url("images/taekwondo.png"); }
+.direction-image--robotics { background-image: url("images/robotics.png"); }
+.direction-image--english { background-image: url("images/english.png"); }
+.direction-image--school { background-image: url("images/daycare.png"); }
+.direction-image--preschool { background-image: url("images/preschool.png"); }
+.direction-image--kazakh { background-image: url("images/kazakh.png"); }
+.direction-image--ai { background-image: url("images/ai.png"); }
+.direction-image--drawing { background-image: url("images/art.png"); }
+.direction-image--cooking { background-image: url("images/cooking.png"); }
+.direction-image--workshop { background-image: url("images/enbek.png"); }
+.direction-image--dombra { background-image: url("images/dombyra.png"); }
+.direction-image--piano { background-image: url("images/piano.png"); }
+.direction-image--vocal { background-image: url("images/vocal.png"); }
+.direction-image--gym { background-image: url("images/gymnastics.png"); }
+.direction-image--dance { background-image: url("images/dance.png"); }
+.parent-image--adults { background-image: url("images/parent1.jpg"); }
+.parent-image--lecture { background-image: url("images/parent2.png"); }
+.parent-image--nutrition { background-image: url("images/parent3.png"); }
+.parent-image--gym { background-image: url("images/parent4.png"); }
+.parent-image--training { background-image: url("images/parent5.png"); }
+.news-image--team { background-image: url("images/news1.png"); }
+.news-image--basketball { background-image: url("images/news2.png"); }
+.news-image--tennis { background-image: url("images/news3.png"); }
+:is(.direction-card__image, .parent-article__image, .news-card__image, .direction-modal__image, .parent-modal__image, .news-modal__image) {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .news-card__body {
   padding: 18px 19px 19px;
   display: flex;

@@ -238,6 +238,20 @@ if (adminForm) {
 const directionTabs = document.querySelectorAll(".direction-tab");
 const directionCards = document.querySelectorAll(".direction-card");
 const directionModal = document.querySelector("#direction-modal");
+const directionImagePaths = [
+  "images/football.png", "images/volleyball.png", "images/basketball.png",
+  "images/jiujitsu.png", "images/chess.png", "images/tennis.png",
+  "images/box.png", "images/judo.png", "images/karate.png", "images/box.png",
+  "images/taekwondo.png", "images/robotics.png", "images/english.png",
+  "images/daycare.png", "images/preschool.png", "images/kazakh.png",
+  "images/ai.png", "images/art.png", "images/cooking.png", "images/enbek.png",
+  "images/dombyra.png", "images/piano.png", "images/vocal.png",
+  "images/gymnastics.png", "images/dance.png",
+];
+
+directionCards.forEach((card, index) => {
+  card.dataset.image = directionImagePaths[index] ?? card.dataset.image;
+});
 
 function openModal(modal) {
   if (!modal) return;
@@ -422,6 +436,11 @@ shopModal?.addEventListener("click", (event) => {
 
 const newsCards = document.querySelectorAll(".news-card");
 const newsModal = document.querySelector("#news-modal");
+const newsImagePaths = ["images/news1.png", "images/news2.png", "images/news3.png"];
+
+newsCards.forEach((card, index) => {
+  card.dataset.newsImage = newsImagePaths[index] ?? card.dataset.newsImage;
+});
 
 function closeNewsModal() {
   closeModal(newsModal);
@@ -450,6 +469,17 @@ newsModal?.addEventListener("click", (event) => {
 
 const parentArticles = document.querySelectorAll(".parent-article");
 const parentModal = document.querySelector("#parent-modal");
+const parentImagePaths = [
+  "images/parent1.jpg",
+  "images/parent2.png",
+  "images/parent3.png",
+  "images/parent4.png",
+  "images/parent5.png",
+];
+
+parentArticles.forEach((article, index) => {
+  article.dataset.parentImage = parentImagePaths[index] ?? article.dataset.parentImage;
+});
 
 function closeParentModal() {
   closeModal(parentModal);
