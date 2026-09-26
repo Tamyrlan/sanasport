@@ -11,15 +11,20 @@ document.querySelector("#faq details[open]")?.removeAttribute("open");
 
 document.querySelectorAll("#faq details").forEach((details) => {
   const summary = details.querySelector("summary");
-  if (!summary) return;
+  const answer = details.querySelector("p");
+  if (!summary || !answer) return;
 
   let currentAnimation;
+  let currentContentAnimation;
 
   const finishAnimation = (shouldStayOpen) => {
     currentAnimation?.cancel();
+    currentContentAnimation?.cancel();
     currentAnimation = undefined;
+    currentContentAnimation = undefined;
     details.open = shouldStayOpen;
     details.style.height = "";
+    answer.style.opacity = "";
   };
 
   summary.addEventListener("click", (event) => {
@@ -30,9 +35,18 @@ document.querySelectorAll("#faq details").forEach((details) => {
 
     const startHeight = details.offsetHeight;
     const shouldOpen = !details.open || isClosing;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const animationOptions = {
+      duration: prefersReducedMotion ? 100 : 200,
+      easing: "cubic-bezier(0.23, 1, 0.32, 1)",
+      fill: "both",
+    };
     delete details.dataset.faqClosing;
 
     if (shouldOpen) {
+      answer.style.opacity = "0";
       details.open = true;
     } else {
       details.dataset.faqClosing = "true";
@@ -45,13 +59,28 @@ document.querySelectorAll("#faq details").forEach((details) => {
 
     currentAnimation = details.animate(
       { height: [`${startHeight}px`, `${endHeight}px`] },
-      { duration: 200, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
+      animationOptions,
+    );
+    currentContentAnimation = answer.animate(
+      prefersReducedMotion
+        ? { opacity: shouldOpen ? [0, 1] : [1, 0] }
+        : {
+            opacity: shouldOpen ? [0, 1] : [1, 0],
+            transform: shouldOpen
+              ? ["translateY(4px)", "translateY(0)"]
+              : ["translateY(0)", "translateY(-4px)"],
+          },
+      animationOptions,
     );
 
     currentAnimation.onfinish = () => {
+      const contentAnimation = currentContentAnimation;
       currentAnimation = undefined;
+      currentContentAnimation = undefined;
       details.open = shouldOpen;
       details.style.height = "";
+      answer.style.opacity = "";
+      contentAnimation?.cancel();
       delete details.dataset.faqClosing;
     };
   });
