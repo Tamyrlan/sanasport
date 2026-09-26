@@ -304,6 +304,52 @@ directionTabs.forEach((tab) => {
   });
 });
 
+const trainerTabs = document.querySelectorAll("[data-trainer-filter]");
+const trainerCards = document.querySelectorAll(".trainer-grid article");
+
+function revealTrainerCards(cards) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const easing = getComputedStyle(document.documentElement)
+    .getPropertyValue("--ease-out")
+    .trim();
+
+  cards.forEach((card, index) => {
+    card.trainerFilterAnimation?.cancel();
+    card.trainerFilterAnimation = card.animate(
+      [
+        { opacity: 0, transform: "translateY(8px)" },
+        { opacity: 1, transform: "translateY(0)" },
+      ],
+      {
+        duration: 160,
+        delay: Math.min(index, 3) * 30,
+        easing,
+      },
+    );
+  });
+}
+
+trainerTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    trainerTabs.forEach((item) => {
+      item.classList.toggle("is-active", item === tab);
+      item.setAttribute("aria-selected", String(item === tab));
+    });
+
+    const category = tab.dataset.trainerFilter;
+    trainerCards.forEach((card) =>
+      card.classList.toggle(
+        "is-hidden",
+        category !== "all" && card.dataset.trainerCategory !== category,
+      ),
+    );
+    revealTrainerCards(
+      [...trainerCards].filter((card) => !card.classList.contains("is-hidden")),
+    );
+  });
+});
+
 function closeDirectionModal() {
   closeModal(directionModal);
 }

@@ -708,20 +708,60 @@ a {
 }
 .tabs {
   display: flex;
-  gap: 28px;
+  gap: 12px;
   margin: 24px 0;
 }
-.tab {
+.tabs .tab {
   border: 0;
-  background: none;
+  background: var(--trainer-tab-surface);
+  color: var(--trainer-tab-color);
   padding: 10px 20px;
   border-radius: 25px;
   font: 700 14px Manrope;
   cursor: pointer;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--trainer-tab-color) 18%, transparent);
+  transition:
+    transform var(--button-motion-duration) var(--ease-out),
+    background-color var(--button-motion-duration) ease,
+    color var(--button-motion-duration) ease,
+    box-shadow var(--button-motion-duration) ease;
+}
+.tab[data-trainer-filter="all"] {
+  --trainer-tab-color: #9b7100;
+  --trainer-tab-surface: #fff0bf;
+}
+.tab[data-trainer-filter="sport"] {
+  --trainer-tab-color: #07844e;
+  --trainer-tab-surface: #e3f5eb;
+}
+.tab[data-trainer-filter="education"] {
+  --trainer-tab-color: #d8101a;
+  --trainer-tab-surface: #fde1e2;
+}
+.tab[data-trainer-filter="creative"] {
+  --trainer-tab-color: #2774d1;
+  --trainer-tab-surface: #e5f0ff;
 }
 .tab.is-active {
   color: #fff;
-  background: #00a94f;
+  background: var(--trainer-tab-color);
+  box-shadow: 0 7px 14px color-mix(in srgb, var(--trainer-tab-color) 24%, transparent);
+}
+.tab[data-trainer-filter="all"].is-active {
+  color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover {
+    background: var(--trainer-tab-color);
+    color: #fff;
+    box-shadow: 0 7px 14px color-mix(in srgb, var(--trainer-tab-color) 24%, transparent);
+  }
+  .tab[data-trainer-filter="all"]:hover {
+    color: var(--ink);
+  }
+}
+.trainer-grid article.is-hidden {
+  display: none;
 }
 .trainer-grid {
   display: grid;
