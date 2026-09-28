@@ -3434,3 +3434,93 @@ body.is-leaving > :not(
     transition: opacity 150ms ease;
   }
 }
+
+/* Parents FAQ uses the same controls and motion as the home-page FAQ. */
+.parents-faq details {
+  margin: 0;
+  padding: 17px 21px;
+}
+.parents-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+}
+.parents-faq summary b {
+  position: relative;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  float: none;
+  place-items: center;
+  border-radius: 50%;
+  background: #fde1e2;
+  color: var(--red);
+  font-size: 0;
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+.parents-faq summary b::before,
+.parents-faq summary b::after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  transform-origin: center;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+.parents-faq summary b::before {
+  content: "+";
+  opacity: 1;
+  transform: translateY(-1px) rotate(0deg) scale(1);
+}
+.parents-faq summary b::after {
+  content: "−";
+  opacity: 0;
+  transform: translateY(-1px) rotate(-90deg) scale(0.6);
+}
+.parents-faq details[open] summary b {
+  background: var(--red);
+  color: #fff;
+}
+.parents-faq details[open] summary b::before {
+  opacity: 0;
+  transform: translateY(-1px) rotate(90deg) scale(0.6);
+}
+.parents-faq details[open] summary b::after {
+  opacity: 1;
+  transform: translateY(-1px) rotate(0deg) scale(1);
+}
+.parents-faq details p {
+  margin: 10px 0 0;
+  padding: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .parents-faq summary:hover b {
+    background: #f8c8cb;
+  }
+  .parents-faq details[open] summary:hover b {
+    background: #c80d17;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parents-faq summary b,
+  .parents-faq summary b::before,
+  .parents-faq summary b::after {
+    transition:
+      background-color 100ms ease,
+      color 100ms ease;
+  }
+  .parents-faq summary b::before,
+  .parents-faq summary b::after {
+    transform: translateY(-1px);
+  }
+}

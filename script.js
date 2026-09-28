@@ -7,9 +7,10 @@ document.querySelectorAll(".topbar .social").forEach((social) => {
     '<a class="social__link social__link--whatsapp" href="https://wa.me/77470947197" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a>';
 });
 
-document.querySelector("#faq details[open]")?.removeAttribute("open");
+function initializeFaq(selector) {
+  document.querySelector(`${selector} details[open]`)?.removeAttribute("open");
 
-document.querySelectorAll("#faq details").forEach((details) => {
+  document.querySelectorAll(`${selector} details`).forEach((details) => {
   const summary = details.querySelector("summary");
   const answer = details.querySelector("p");
   if (!summary || !answer) return;
@@ -86,7 +87,11 @@ document.querySelectorAll("#faq details").forEach((details) => {
       delete details.dataset.faqClosing;
     };
   });
-});
+  });
+}
+
+initializeFaq("#faq");
+initializeFaq(".parents-faq");
 const defaultContent = {
   heroTitle: "Sana Sport — Семейный\nспортивный центр",
   heroDescription:
