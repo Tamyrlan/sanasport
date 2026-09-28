@@ -129,6 +129,9 @@ a {
   color: #fff;
   background: #242424;
 }
+body.is-kazakh .tab[data-trainer-filter="creative"] {
+  width: 142px;
+}
 .header {
   height: 94px;
   display: flex;
