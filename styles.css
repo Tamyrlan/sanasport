@@ -3503,6 +3503,7 @@ body > :not(
   .shop-modal,
   .parent-modal,
   .news-modal,
+  .trainer-modal,
   .admin-panel,
   .admin-launcher
 ) {
@@ -3516,6 +3517,7 @@ body.is-leaving > :not(
   .shop-modal,
   .parent-modal,
   .news-modal,
+  .trainer-modal,
   .admin-panel,
   .admin-launcher
 ) {
@@ -3530,6 +3532,7 @@ body.is-leaving > :not(
     .shop-modal,
     .parent-modal,
     .news-modal,
+    .trainer-modal,
     .admin-panel,
     .admin-launcher
   ) {
