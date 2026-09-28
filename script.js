@@ -794,6 +794,57 @@ const shopGroups = document.querySelectorAll(".shop-group");
 const productCards = document.querySelectorAll(".product-card");
 const shopModal = document.querySelector("#shop-modal");
 const shopNotice = document.querySelector("#shop-notice");
+const shopModalDescription = document.querySelector(".shop-modal__content p");
+const defaultShopModalDescription = shopModalDescription?.textContent ?? "";
+const pickupOnlyDescriptions =
+  activeLanguage === "kz"
+    ? {
+        equipment: [
+          "Жаттығуға және күнделікті қолдануға арналған ыңғайлы рюкзак.",
+          "Спорттық заттарды өзіңізбен алып жүруге арналған кең сөмке.",
+          "Күнделікті қажетті заттарға арналған жарқын Sana Sport рюкзагы.",
+        ],
+        souvenirs: [
+          "Жоспарлар мен жазбаларға арналған фирмалық дәптер.",
+          "Сусынның температурасын ұзақ сақтайтын термобөтелке.",
+          "Жаттығуға және күнделікті қолдануға арналған жеңіл бөтелке.",
+        ],
+      }
+    : {
+        equipment: [
+          "Удобный рюкзак для тренировок и повседневного использования.",
+          "Вместительная сумка для спортивных вещей.",
+          "Яркий рюкзак Sana Sport для нужных мелочей на каждый день.",
+        ],
+        souvenirs: [
+          "Фирменный блокнот для планов и записей.",
+          "Термобутылка, которая дольше сохраняет температуру напитка.",
+          "Лёгкая бутылка для тренировок и повседневных дел.",
+        ],
+      };
+
+const pickupOnlyIndices = {};
+productCards.forEach((card) => {
+  const category = card.dataset.shopCategory;
+  const descriptions = pickupOnlyDescriptions[category];
+  if (!descriptions) return;
+
+  const index = pickupOnlyIndices[category] ?? 0;
+  pickupOnlyIndices[category] = index + 1;
+  const description = descriptions[index];
+  card.dataset.hasSize = "false";
+  card.dataset.description = description;
+  card.querySelector(".product-info small")?.remove();
+
+  const productInfo = card.querySelector(".product-info");
+  const priceRow = productInfo?.querySelector("div");
+  if (productInfo && priceRow) {
+    const descriptionElement = document.createElement("p");
+    descriptionElement.className = "product-info__description";
+    descriptionElement.textContent = description;
+    priceRow.before(descriptionElement);
+  }
+});
 
 shopFilters.forEach((filter) => {
   filter.addEventListener("click", () => {
@@ -839,6 +890,18 @@ productCards.forEach((card) => {
     document.querySelector("#shop-modal-image").className =
       `shop-modal__image ${card.querySelector(".product-image").className.replace("product-image", "")}`;
     const sizeSelect = document.querySelector("#shop-modal-size");
+    const sizeLabel = sizeSelect?.closest("label");
+    const hasSize = card.dataset.hasSize !== "false";
+    if (shopModalDescription) {
+      shopModalDescription.textContent =
+        card.dataset.description || defaultShopModalDescription;
+    }
+    if (sizeLabel) sizeLabel.hidden = !hasSize;
+    if (!hasSize) {
+      sizeSelect.innerHTML = "";
+      openModal(shopModal);
+      return;
+    }
     const sizeHint = activeLanguage === "kz" ? "Өлшемін нақтылау" : "Уточнить размер";
     sizeSelect.innerHTML = `<option>${card.dataset.size}</option><option>${sizeHint}</option>`;
     openModal(shopModal);

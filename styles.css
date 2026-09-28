@@ -2101,6 +2101,13 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   font-size: 17px;
   line-height: 1.35;
 }
+.product-info__description {
+  min-height: 42px;
+  margin: 0 0 13px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.4;
+}
 .product-info > div {
   display: flex;
   justify-content: space-between;
