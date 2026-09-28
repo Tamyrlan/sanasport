@@ -2203,6 +2203,9 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   font-size: 12px;
   font-weight: 800;
 }
+.shop-modal__content label[hidden] {
+  display: none;
+}
 .shop-modal__content select {
   padding: 12px;
   border: 1px solid #ccc;
