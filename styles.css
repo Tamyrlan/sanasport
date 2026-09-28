@@ -3585,6 +3585,28 @@ h6 {
   font-weight: 700;
 }
 
+/* The supplied Museo file only includes its light native face. Give Kazakh
+   headings and interactive labels a stronger synthetic weight for parity
+   with the Russian interface, while keeping regular copy light. */
+body.is-kazakh :is(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .button,
+  .tab,
+  .direction-tab,
+  .shop-filter,
+  .modal-cta,
+  .shop-order-button,
+  .nav a
+) {
+  font-synthesis: weight;
+  font-weight: 800;
+}
+
 /* Modal copy follows the same hierarchy as the rest of the site. */
 :is(
   .direction-modal__content,
