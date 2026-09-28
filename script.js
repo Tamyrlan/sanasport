@@ -184,6 +184,146 @@ function enableKazakhLanguage() {
   document.documentElement.lang = "kk";
   document.body.classList.add("is-kazakh");
   translateTextNodes(translations);
+
+  const setText = (selector, value) => {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = value;
+  };
+  const setTextList = (selector, values) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      if (values[index]) element.textContent = values[index];
+    });
+  };
+  const setLeadingTextList = (selector, values) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      if (values[index] && element.firstChild) {
+        element.firstChild.nodeValue = `${values[index]} `;
+      }
+    });
+  };
+
+  // Page-specific copy is set by selectors so text split by <br> and modal
+  // data attributes are translated as well.
+  setText(".tariffs-heading .eyebrow", "ТАРИФТЕР");
+  setText(".tariffs-heading h1", "Sana Sport абонементтері");
+  setText(".tariffs-heading p", "Ай сайынғы төлем, ауру кезінде абонементті тоқтату және бірнеше бағытқа жазылғанда жеңілдік.");
+  setTextList(".tariff-card h2", ["Командалық спорт түрлері", "Жекпе-жек / бокс", "Үстел теннисі", "Шығармашылық", "Хореография", "Білім беру"]);
+  setTextList(".tariff-card__button", Array(6).fill("Рәсімдеу"));
+  document.querySelectorAll(".tariff-card p").forEach((price) => {
+    if (price.firstChild) price.firstChild.nodeValue = "бастап ";
+  });
+
+  setText(".parents-heading .eyebrow", "АТА-АНАЛАРҒА");
+  setText(".parents-heading h1", "Ата-аналарға арналған кеңестер");
+  setText(".parents-heading p", "Sana Sport дене белсенділігі мен салауатты өмір салтын қолдауға арналған спорт бағыттары және ата-аналарға пайдалы кеңестер ұсынады.");
+  const kazakhParentArticles = [
+    ["Ересектерге арналған секциялар", "Sana Sport-тағы ересектер спорты — денсаулық, сергектік және жақсы көңіл күйге арналған жаттығулар.", "Sana Sport-тағы ересектер спорты — денсаулық, сергектік және жақсы көңіл күйге арналған жаттығулар. Өзіңізге ыңғайлы форматты таңдаңыз: жеке немесе топпен."],
+    ["Жас спортшының дербестігін тәрбиелеу", "Спорт психологы Михаил Боттиннің жас спортшының дербестігі, мотивациясы және қолдауы туралы дәрісі.", "Спорт психологы Михаил Боттин жас спортшының дербестігін тәрбиелеу, мотивацияны сақтау және нәтижеге жету жолындағы қолдау туралы әңгімелейді."],
+    ["Спортшы өміріндегі тамақтану", "Клиникалық нутрициолог Альфия Большепаваның спортшы өміріндегі тамақтану және қалпына келу туралы дәрісі.", "Клиникалық нутрициолог Альфия Большепава спортшы өміріндегі теңгерімді тамақтану мен жаттығудан кейінгі қалпына келу жайлы кеңес береді."],
+    ["Залдарды жалға алу", "Жеке мақсаттар, жаттығулар және іс-шаралар үшін әртүрлі көлемдегі залдарды жалға ала аласыз.", "Жеке мақсаттар, жаттығулар және іс-шаралар үшін әртүрлі көлемдегі залдарды жалға ала аласыз. Шарттар туралы толығырақ жалға алу бетінен біліңіз."],
+    ["Жеке жаттығулар", "Сағат 19:00-ден кейін жаттықтырушыларымыз жеке мақсаттарыңызға сай жаттығу өткізуге дайын.", "Сағат 19:00-ден кейін жаттықтырушыларымыз жеке мақсаттарыңызға жетуге көмектесіп, жеке бағдарлама құрастыру үшін жаттығу өткізуге дайын."],
+  ];
+  document.querySelectorAll(".parent-article").forEach((article, index) => {
+    const translation = kazakhParentArticles[index];
+    if (!translation) return;
+    const [title, preview, description] = translation;
+    article.dataset.parentTitle = title;
+    article.dataset.parentText = description;
+    article.querySelector("h2").textContent = title;
+    article.querySelector("p").textContent = preview;
+  });
+  setTextList(".parent-more", Array(5).fill("Толығырақ білу →"));
+  setText(".parent-reminders h2", "Ата-аналарға ескерту");
+  setTextList(".reminder-grid h3", ["Келу ережелері", "Сабақты өткізіп алу және тоқтату", "Балалардың қауіпсіздігі"]);
+  setTextList(".reminder-grid p", ["Ауыстыратын аяқ киім, бағытқа сай киім және сабақ басталардан 10 минут бұрын келу.", "Абонементті ауру кезінде анықтамамен айына 14 күнге дейін тоқтатуға болады.", "Орталық аумағында кіру жүйесі, бейнебақылау және медициналық пункт бар."]);
+  setText(".parents-faq > h2", "Сұрақ-жауап");
+  setLeadingTextList(".parents-faq summary", ["Балалар үйірмелері мен секциялары ересектерге арналған сабақтармен бір уақытта өте ме?", "Сабақтарға арнайы жабдық керек пе?", "Тегін сынақ сабағы бар ма?", "Сабақтар қай тілдерде өтеді?", "Сіздер мемлекеттік ұйымсыздар ма?"]);
+  setTextList(".parents-faq details p", ["Иә, кесте залдар мен уақытқа бөлінген — балалар мен ересектер алаңдарда кездеспейді.", "Алғашқы сабақта барлық қажетті жабдықты орталық ұсынады.", "Иә, өтінім қалдырыңыз, әкімші сізге ыңғайлы бағытты таңдап береді.", "Сабақтар орыс және қазақ тілдерінде өтеді.", "Sana Sport — жекеменшік отбасылық спорт орталығы."]);
+  setText(".parents-cta h2", "Сұрақтарыңыз қалды ма?");
+  setText(".parents-cta .button", "Әкімшімен байланысу");
+  setText(".parent-modal__content small", "АТА-АНАЛАРҒА ПАЙДАЛЫ");
+  setText(".parent-modal__content .button", "Сұрақ қою");
+
+  setText(".rental-heading .eyebrow", "ЫНТЫМАҚТАСТЫҚ");
+  setText(".rental-heading h1", "Жалға алу және серіктестік");
+  setText(".rental-heading p", "Sana Sport-та біз өзара пайдалы серіктестікті жоғары бағалаймыз және денсаулықты, фитнесті және шығармашылықты дамытуға бағытталған ынтымақтастық түрлерін қарастыруға дайынбыз.");
+  setTextList(".rental-option h2", ["Алаң мен залдарды жалға алу", "Корпоративтік ұсыныстар", "Жарнама орналастыру"]);
+  setTextList(".rental-option p", ["Жаттығуларға, іс-шараларға және жеке мақсаттарға арналған әртүрлі көлемдегі залдар — сағаттық жалға алу.", "Компания командалары мен қызметкерлеріне арналған спорт форматтары.", "Кешен аумағындағы адам көп жүретін жарнама орындары."]);
+  setText(".rental-cta h2", "Бірлескен жұмыста мүмкіндік көресіз бе?");
+  setText(".rental-cta p", "Бізге info@sanasport.kz мекенжайы арқылы жазыңыз — бірге белсенді әрі салауатты өмірге шабыт беретін жобалар жасай аламыз.");
+  setText(".rental-cta .button", "Жалға алуға өтінім қалдыру");
+
+  setText(".news-heading .eyebrow", "ЖАҢАЛЫҚТАР");
+  setText(".news-heading h1", "Sana Sport-та не болып жатыр");
+  setText(".news-heading p", "Турнирлер, жаңа залдардың ашылуы, акциялар және секцияларға қабылдау.");
+  const kazakhNews = [
+    ["Sana Sport Grizzlies U17 Қазақстанды Түркиядағы халықаралық турнирде таныстырады!", "2026 жылғы 8 қыркүйек", "2026 жылғы 8–11 қыркүйек аралығында Sana Sport Grizzlies U17 командасы Түркияның Алания қаласында өтетін EVOQ Challenge Cup халықаралық турниріне қатысады.", "2026 жылғы 8–11 қыркүйек аралығында Sana Sport Grizzlies U17 командасы Түркияның Алания қаласында өтетін EVOQ Challenge Cup халықаралық турниріне қатысады. Командаға сенімді ойын мен үлкен жеңістер тілейміз!"],
+    ["«Болашақ ойындары» — киберспорт баскетболмен тоғысқанда!", "2026 жылғы 6 қыркүйек", "Sana Sport-та киберспортты, жастарды және нағыз баскетболды біріктірген «Болашақ ойындары» / Hybrid Basketball Cup ерекше турнирі өтті!", "Sana Sport-та киберспортты, жастарды және нағыз баскетболды біріктірген «Болашақ ойындары» / Hybrid Basketball Cup ерекше турнирі өтті! Бұл жарқын матчтар, жаңа таныстықтар және командалық жігерге толы күн болды."],
+    ["Sana Sport — үстел теннисіндегі жаңа жеңіс!", "2026 жылғы 6 қыркүйек", "Үстел теннисінен ЦСИЮ №9 чемпионатында Sana Sport тәрбиеленушісі Сердяк На үздік нәтиже көрсетіп, 1-орын иеленді.", "Үстел теннисінен ЦСИЮ №9 чемпионатында Sana Sport тәрбиеленушісі Сердяк На үздік нәтиже көрсетіп, ДЮСШ спортшылары арасында 1-орын иеленді! Чемпионымыз бен жаттықтырушыларды құттықтаймыз."],
+  ];
+  document.querySelectorAll(".news-card").forEach((card, index) => {
+    const translation = kazakhNews[index];
+    if (!translation) return;
+    const [title, date, preview, description] = translation;
+    card.dataset.newsTitle = title;
+    card.dataset.newsDate = date;
+    card.dataset.newsText = description;
+    card.querySelector("time").textContent = date;
+    card.querySelector("h2").textContent = title;
+    card.querySelector("p").textContent = preview;
+  });
+  setTextList(".news-read", Array(3).fill("Жаңалықты оқу"));
+  setText(".news-modal__content .button", "Бізбен байланысу");
+
+  setText(".contacts-copy .eyebrow", "БАЙЛАНЫСТАР");
+  setText(".contacts-copy h1", "Біз әрдайым байланыстамыз");
+  setTextList(".contacts-copy dt", ["МЕКЕНЖАЙ", "ЖҰМЫС УАҚЫТЫ", "ТЕЛЕФОН", "ПОШТА"]);
+  setText("#contact-address", "Астана қ., Қажымұқан көшесі, 5");
+  setText(".contacts-copy dl > div:nth-child(2) dd", "Дс–Жс, 8:00–23:00, демалыссыз");
+  setText(".rental-box h2", "Жалға алу және ынтымақтастық");
+  setText(".rental-box p", "Алаңдар мен залдарды жалға алу, корпоративтік ұсыныстар және жарнама орналастыру — info@sanasport.kz поштасына жазыңыз.");
+  setText(".rental-box .button", "Жалға алу туралы толығырақ");
+  setText(".map-search label", "Картадан мекенжайды табу");
+  const mapAddress = document.querySelector("#map-address");
+  if (mapAddress) mapAddress.value = "Астана қ., Қажымұқан көшесі, 5";
+  setText("#map-search-button", "Табу");
+  setText("#map-external", "Яндекс.Карталардан ашу ↗");
+
+  setText(".shop-heading .eyebrow", "SANA SHOP");
+  setText(".shop-heading h1", "Sana Sport фирмалық тауарлары");
+  setText(".shop-heading p", "Жаттығулар мен күнделікті өмірге арналған киім және аксессуарлар.");
+  setTextList(".shop-filter", ["Барлық тауарлар", "Балалар", "Киім", "Жабдық", "Кәдесыйлар"]);
+  setTextList(".shop-group__heading h2", ["Балалар", "Киім", "Жабдық", "Кәдесыйлар"]);
+  const kazakhProducts = [
+    ["Sana Kids футболкасы", "6 / 14 жас"], ["Жасыл Sana Kids футболкасы", "6 / 8 / 10 / 12 / 14 жас"], ["Ақ Sana Kids футболкасы", "6 / 14 жас"],
+    ["Erkin oila, batyl jasa", "XS / S"], ["Sheksiz mumkindik", "XS / S"], ["Kishkentai qadamdar ulken jetistikke aparady", "XS / S"],
+    ["Sana Sport рюкзагы", "Бірыңғай өлшем"], ["Спорт сөмкесі", "Бірыңғай өлшем"], ["Түсті Sana Sport рюкзагы", "Бірыңғай өлшем"],
+    ["Sana Sport дәптері", "Бірыңғай өлшем"], ["Sana Sport термобөтелкесі", "Бірыңғай өлшем"], ["Sana Sport бөтелкесі", "Бірыңғай өлшем"],
+  ];
+  document.querySelectorAll(".product-card").forEach((card, index) => {
+    const translation = kazakhProducts[index];
+    if (!translation) return;
+    const [title, size] = translation;
+    card.dataset.product = title;
+    card.dataset.size = size;
+    card.querySelector("h3").textContent = title;
+    card.querySelector("small").textContent = size;
+  });
+  setTextList(".product-image span", ["Балалар", "Балалар", "Балалар", "Киім", "Киім", "Киім", "Жабдық", "Жабдық", "Жабдық", "Кәдесыйлар", "Кәдесыйлар", "Кәдесыйлар"]);
+  setText(".shop-modal__content small", "SANA SHOP ТАУАРЫ");
+  setText(".shop-modal__content p", "Өлшемді таңдаңыз, тапсырысты растау үшін әкімші сізбен байланысады.");
+  const shopSizeLabel = document.querySelector(".shop-modal__content label");
+  if (shopSizeLabel?.firstChild) shopSizeLabel.firstChild.nodeValue = "Өлшем";
+  setText(".shop-order-button", "Тауарға тапсырыс беру");
+
+  document.querySelectorAll(".contact").forEach((contact) => {
+    setText(".contact h2", "Тегін сынақ сабағын алыңыз");
+    setText(".contact p", "Байланыс деректеріңізді қалдырыңыз — біз сізге хабарласып, ыңғайлы бағыт пен уақытты таңдаймыз.");
+    contact.querySelector('input[type="text"]')?.setAttribute("placeholder", "Аты-жөніңіз");
+    contact.querySelector('input[type="tel"]')?.setAttribute("placeholder", "Ата-ананың телефоны");
+    const submit = contact.querySelector('button[type="submit"]');
+    if (submit) submit.textContent = "Өтінім жіберу";
+  });
   const kazakhDirectionCards = [
     ["Футбол", "Командалық ойын, қозғалыс және салауатты әдет.", "Sana Sport-тағы футбол балаларды командалық ойынға баулиды, дағдысын дамытып, белсенді өмір салтын ұната білуге үйретеді."],
     ["Волейбол", "Командалық ойын, үйлесім және қарқынды жаттығу.", "Волейбол балалардың үйлесімін дамытып, командада ойнауды үйретеді және жаттығуды қызықты етеді."],
@@ -674,7 +814,8 @@ productCards.forEach((card) => {
     document.querySelector("#shop-modal-image").className =
       `shop-modal__image ${card.querySelector(".product-image").className.replace("product-image", "")}`;
     const sizeSelect = document.querySelector("#shop-modal-size");
-    sizeSelect.innerHTML = `<option>${card.dataset.size}</option><option>Уточнить размер</option>`;
+    const sizeHint = activeLanguage === "kz" ? "Өлшемін нақтылау" : "Уточнить размер";
+    sizeSelect.innerHTML = `<option>${card.dataset.size}</option><option>${sizeHint}</option>`;
     openModal(shopModal);
   });
 });
