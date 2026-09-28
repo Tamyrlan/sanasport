@@ -764,7 +764,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   padding: 10px 16px;
   border-radius: 999px;
   line-height: 1.15;
-  font: 700 14px Manrope;
+  font: 700 14px var(--display-font);
   cursor: pointer;
   transition:
     color 0.3s ease,
@@ -1233,7 +1233,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   color: #fff;
   background: #242424;
   font:
-    700 12px Manrope,
+    700 12px var(--display-font),
     Arial,
     sans-serif;
   box-shadow: 0 8px 24px #0003;
@@ -1306,7 +1306,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border-radius: 7px;
   padding: 11px;
   font:
-    500 13px Manrope,
+    500 13px var(--display-font),
     Arial,
     sans-serif;
   resize: vertical;
@@ -1325,7 +1325,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: none;
   color: var(--red);
   font:
-    700 11px Manrope,
+    700 11px var(--display-font),
     Arial,
     sans-serif;
   text-align: left;
@@ -1568,7 +1568,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border-radius: 22px;
   padding: 9px 20px;
   font:
-    800 15px Manrope,
+    800 15px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -1665,7 +1665,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   padding: 12px 19px;
   background: #e9e9e9;
   font:
-    800 12px Manrope,
+    800 12px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -1950,7 +1950,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: #edf1f0;
   color: #444;
   font:
-    800 13px Manrope,
+    800 13px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -2190,7 +2190,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border: 1px solid #ccc;
   border-radius: 8px;
   font:
-    500 13px Manrope,
+    500 13px var(--display-font),
     Arial,
     sans-serif;
 }
@@ -2385,7 +2385,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border-radius: 8px;
   padding: 11px 12px;
   font:
-    500 12px Manrope,
+    500 12px var(--display-font),
     Arial,
     sans-serif;
 }
@@ -2396,7 +2396,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: var(--blue);
   color: #fff;
   font:
-    800 12px Manrope,
+    800 12px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -2669,7 +2669,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border: 0;
   background: none;
   font:
-    800 12px Manrope,
+    800 12px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -3110,7 +3110,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: none;
   color: var(--red);
   font:
-    800 12px Manrope,
+    800 12px var(--display-font),
     Arial,
     sans-serif;
   cursor: pointer;
@@ -3582,5 +3582,24 @@ h4,
 h5,
 h6 {
   font-family: var(--display-font);
+  font-weight: 700;
+}
+
+/* Modal copy follows the same hierarchy as the rest of the site. */
+:is(
+  .direction-modal__content,
+  .shop-modal__content,
+  .parent-modal__content,
+  .news-modal__content
+) p {
+  font-weight: 400;
+}
+
+:is(
+  .direction-modal__content,
+  .shop-modal__content,
+  .parent-modal__content,
+  .news-modal__content
+) :is(h2, strong, small, label, .button, .modal-cta, .shop-order-button) {
   font-weight: 700;
 }
