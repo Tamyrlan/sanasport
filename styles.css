@@ -10,6 +10,7 @@
   --dark: #292929;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --button-motion-duration: 160ms;
+  --display-font: "Museo Sans Cyrl", Manrope, Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -25,6 +26,23 @@ body {
     Arial,
     sans-serif;
   background: #f4f4f4;
+}
+:where(
+  .hero h1,
+  .about h2,
+  .section h2,
+  .shop h2,
+  .contact h2,
+  .tariffs-heading h1,
+  .directions-heading h1,
+  .parents-heading h1,
+  .news-heading h1,
+  .rental-heading h1,
+  .contacts-heading h1,
+  .shop-heading h1
+) {
+  font-family: var(--display-font);
+  font-weight: 100;
 }
 a {
   color: inherit;
@@ -3286,6 +3304,14 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   ):active {
     transform: scale(0.99);
   }
+}
+
+@font-face {
+  font-family: "Museo Sans Cyrl";
+  src: url("museosanscyrl_100.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
