@@ -251,8 +251,6 @@ document.querySelectorAll(".languages").forEach((languages) => {
   languages.innerHTML = `<a href="${languageUrl("kz")}" lang="kk"${activeLanguage === "kz" ? " class=\"is-current\"" : ""}>KZ</a> <a href="${languageUrl("ru")}" lang="ru"${activeLanguage === "ru" ? " class=\"is-current\"" : ""}>RU</a>`;
 });
 
-if (activeLanguage === "kz") enableKazakhLanguage();
-
 function initializeFaq(selector) {
   document.querySelector(`${selector} details[open]`)?.removeAttribute("open");
 
@@ -485,6 +483,9 @@ if (adminForm) {
 
   applyContent();
 }
+
+// Apply the locale after saved editor content has restored the hero copy.
+if (activeLanguage === "kz") enableKazakhLanguage();
 
 const directionTabs = document.querySelectorAll(".direction-tab");
 const directionCards = document.querySelectorAll(".direction-card");
