@@ -10,7 +10,7 @@
   --dark: #292929;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --button-motion-duration: 160ms;
-  --display-font: "Museo Sans Cyrl", Manrope, Arial, sans-serif;
+  --display-font: "Museo Sans Cyrl", Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -21,10 +21,7 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  font:
-    500 14px/1.45 Manrope,
-    Arial,
-    sans-serif;
+  font: 400 14px/1.45 var(--display-font);
   background: #f4f4f4;
 }
 :where(
@@ -42,7 +39,7 @@ body {
   .shop-heading h1
 ) {
   font-family: var(--display-font);
-  font-weight: 100;
+  font-weight: 700;
 }
 a {
   color: inherit;
@@ -3570,4 +3567,20 @@ body.is-leaving > :not(
   .parents-faq summary b::after {
     transform: translateY(-1px);
   }
+}
+
+/* Museo Sans Cyrl is the single typeface used throughout the site. */
+body,
+body * {
+  font-family: var(--display-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--display-font);
+  font-weight: 700;
 }
