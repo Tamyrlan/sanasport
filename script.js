@@ -315,6 +315,8 @@ function enableKazakhLanguage() {
   const shopSizeLabel = document.querySelector(".shop-modal__content label");
   if (shopSizeLabel?.firstChild) shopSizeLabel.firstChild.nodeValue = "Өлшем";
   setText(".shop-order-button", "Тауарға тапсырыс беру");
+  setText(".trainer-modal__content small", "SANA SPORT КОМАНДАСЫ");
+  setText(".trainer-modal__content .button", "Бізбен байланысу");
   setText("#shop-notice-title", "Тауарлар каталогы");
   setText("#shop-notice-description", "Каталогта Sana Sport-та қазір бар тауарлар көрсетілген.");
   setText("#shop-notice-pickup", "Жеткізу жоқ — тауарларды тек орталықтың өзінен сатып алуға болады.");
@@ -760,19 +762,71 @@ trainerTabs.forEach((tab) => {
   });
 });
 
+const trainerModal = document.querySelector("#trainer-modal");
+
+function closeTrainerModal() {
+  closeModal(trainerModal);
+}
+
+function openTrainerCard(card) {
+  const avatar = card.querySelector(".avatar");
+  const modalAvatar = document.querySelector("#trainer-modal-avatar");
+  document.querySelector("#trainer-modal-name").textContent =
+    card.querySelector("h3").textContent.replace(/\s+/g, " ").trim();
+  document.querySelector("#trainer-modal-role").textContent =
+    card.querySelector("p").textContent;
+  modalAvatar.textContent = avatar.textContent;
+  modalAvatar.className = `trainer-modal__avatar ${avatar.className}`;
+  openModal(trainerModal);
+}
+
+trainerCards.forEach((card) => {
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("role", "button");
+  card.addEventListener("click", () => openTrainerCard(card));
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openTrainerCard(card);
+    }
+  });
+});
+
+document
+  .querySelector("#trainer-modal-close")
+  ?.addEventListener("click", closeTrainerModal);
+trainerModal?.addEventListener("click", (event) => {
+  if (event.target === trainerModal) closeTrainerModal();
+});
+
 function closeDirectionModal() {
   closeModal(directionModal);
 }
 
+function openDirectionCard(card) {
+  document.querySelector("#modal-title").textContent = card.dataset.name;
+  document.querySelector("#modal-age").textContent = card.dataset.age;
+  document.querySelector("#modal-description").textContent =
+    card.dataset.description;
+  document.querySelector("#modal-image").style.backgroundImage =
+    `url("${card.dataset.image}")`;
+  openModal(directionModal);
+}
+
 directionCards.forEach((card) => {
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("role", "button");
+  card.addEventListener("click", (event) => {
+    if (!event.target.closest(".choose-direction")) openDirectionCard(card);
+  });
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openDirectionCard(card);
+    }
+  });
   card.querySelector(".choose-direction").addEventListener("click", () => {
-    document.querySelector("#modal-title").textContent = card.dataset.name;
-    document.querySelector("#modal-age").textContent = card.dataset.age;
-    document.querySelector("#modal-description").textContent =
-      card.dataset.description;
-    document.querySelector("#modal-image").style.backgroundImage =
-      `url("${card.dataset.image}")`;
-    openModal(directionModal);
+    openDirectionCard(card);
   });
 });
 
@@ -785,6 +839,7 @@ directionModal?.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeDirectionModal();
+    closeTrainerModal();
     closeShopNotice();
   }
 });
@@ -927,17 +982,32 @@ function closeNewsModal() {
   closeModal(newsModal);
 }
 
+function openNewsCard(card) {
+  document.querySelector("#news-modal-date").textContent =
+    card.dataset.newsDate;
+  document.querySelector("#news-modal-title").textContent =
+    card.dataset.newsTitle;
+  document.querySelector("#news-modal-text").textContent =
+    card.dataset.newsText;
+  document.querySelector("#news-modal-image").style.backgroundImage =
+    `url("${card.dataset.newsImage}")`;
+  openModal(newsModal);
+}
+
 newsCards.forEach((card) => {
+  card.setAttribute("tabindex", "0");
+  card.setAttribute("role", "button");
+  card.addEventListener("click", (event) => {
+    if (!event.target.closest(".news-read")) openNewsCard(card);
+  });
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openNewsCard(card);
+    }
+  });
   card.querySelector(".news-read").addEventListener("click", () => {
-    document.querySelector("#news-modal-date").textContent =
-      card.dataset.newsDate;
-    document.querySelector("#news-modal-title").textContent =
-      card.dataset.newsTitle;
-    document.querySelector("#news-modal-text").textContent =
-      card.dataset.newsText;
-    document.querySelector("#news-modal-image").style.backgroundImage =
-      `url("${card.dataset.newsImage}")`;
-    openModal(newsModal);
+    openNewsCard(card);
   });
 });
 

@@ -837,6 +837,20 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: var(--soft);
   border-radius: 15px;
   overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+.trainer-grid article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px #0002;
+}
+.trainer-grid article:focus-visible,
+.direction-card:focus-visible,
+.news-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 38%, transparent);
+  outline-offset: 3px;
 }
 .avatar {
   height: 245px;
@@ -885,6 +899,88 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   color: var(--muted);
   padding-top: 5px;
   padding-bottom: 20px;
+}
+.trainer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #0008;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms var(--ease-out);
+}
+.trainer-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.trainer-modal__dialog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  width: min(610px, 100%);
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  opacity: 0;
+  transform: translateY(4%) scale(0.96);
+  transition:
+    opacity 250ms var(--ease-out),
+    transform 250ms var(--ease-out);
+}
+.trainer-modal.is-open .trainer-modal__dialog {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.trainer-modal__avatar {
+  display: grid;
+  min-height: 250px;
+  place-items: center;
+  font-size: 52px;
+}
+.trainer-modal__content {
+  padding: 42px 34px 34px;
+}
+.trainer-modal__content small {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.trainer-modal__content h2 {
+  margin: 13px 0 10px;
+  font-size: 27px;
+  line-height: 1.2;
+}
+.trainer-modal__content p {
+  margin: 0 0 25px;
+  color: var(--muted);
+}
+.trainer-modal__close {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 23px;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .trainer-modal__dialog {
+    grid-template-columns: 1fr;
+  }
+  .trainer-modal__avatar {
+    min-height: 150px;
+  }
+  .trainer-modal__content {
+    padding: 28px 24px 24px;
+  }
 }
 .faq {
   max-width: 800px;
