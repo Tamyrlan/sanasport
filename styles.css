@@ -1583,6 +1583,16 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .direction-tab[data-direction-filter="sport"].is-active {
   background: #00a64f;
 }
+.direction-tab[data-direction-filter="education"] {
+  color: var(--red);
+}
+.direction-tab[data-direction-filter="education"]:hover {
+  background: #fde1e2;
+}
+.direction-tab[data-direction-filter="education"].is-active {
+  background: var(--red);
+  color: #fff;
+}
 .direction-tab[data-direction-filter="creative"].is-active {
   background: #ffc400;
   color: #242424;
