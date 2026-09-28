@@ -220,6 +220,23 @@ function enableKazakhLanguage() {
     card.querySelector("h2").textContent = title;
     card.querySelector("p").textContent = preview;
   });
+  const kazakhAgeLabels = {
+    "с 3 лет": "3 жастан бастап",
+    "с 4 лет": "4 жастан бастап",
+    "с 5 лет": "5 жастан бастап",
+    "с 6 лет": "6 жастан бастап",
+    "с 7 лет": "7 жастан бастап",
+    "с 8 лет": "8 жастан бастап",
+    "с 11 лет": "11 жастан бастап",
+    "Ученики 1–4 классов": "1–4 сынып оқушылары",
+  };
+  document.querySelectorAll(".direction-card").forEach((card) => {
+    const age = kazakhAgeLabels[card.dataset.age] ?? card.dataset.age;
+    card.dataset.age = age;
+    card.querySelector(".direction-card__image span").textContent = age;
+  });
+  const modalMeta = document.querySelector(".direction-modal .modal-meta");
+  if (modalMeta) modalMeta.textContent = "айына 8 сабақтан бастап";
   document.querySelectorAll('a[href]').forEach((link) => {
     if (link.closest(".languages")) return;
     const url = new URL(link.href, window.location.href);
