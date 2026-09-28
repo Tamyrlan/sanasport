@@ -12,6 +12,7 @@ const activeLanguage = languageQuery === "kz" ? "kz" : "ru";
 
 function languageUrl(language) {
   const url = new URL(window.location.href);
+  url.hash = "";
   if (language === "kz") url.searchParams.set("lang", "kz");
   else url.searchParams.delete("lang");
   return `${url.pathname.split("/").pop() || "index.html"}${url.search}${url.hash}`;
@@ -176,6 +177,7 @@ function enableKazakhLanguage() {
   document.body.classList.add("is-kazakh");
   translateTextNodes(translations);
   document.querySelectorAll('a[href]').forEach((link) => {
+    if (link.closest(".languages")) return;
     const url = new URL(link.href, window.location.href);
     if (url.origin === window.location.origin && /\.html$/.test(url.pathname)) {
       url.searchParams.set("lang", "kz");
