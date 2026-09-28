@@ -315,6 +315,10 @@ function enableKazakhLanguage() {
   const shopSizeLabel = document.querySelector(".shop-modal__content label");
   if (shopSizeLabel?.firstChild) shopSizeLabel.firstChild.nodeValue = "Өлшем";
   setText(".shop-order-button", "Тауарға тапсырыс беру");
+  setText("#shop-notice-title", "Тауарлар каталогы");
+  setText("#shop-notice-description", "Каталогта Sana Sport-та қазір бар тауарлар көрсетілген.");
+  setText("#shop-notice-pickup", "Жеткізу жоқ — тауарларды тек орталықтың өзінен сатып алуға болады.");
+  setText("#shop-notice-confirm", "Түсінікті");
 
   document.querySelectorAll(".contact").forEach((contact) => {
     setText(".contact h2", "Тегін сынақ сабағын алыңыз");
@@ -779,13 +783,17 @@ directionModal?.addEventListener("click", (event) => {
   if (event.target === directionModal) closeDirectionModal();
 });
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeDirectionModal();
+  if (event.key === "Escape") {
+    closeDirectionModal();
+    closeShopNotice();
+  }
 });
 
 const shopFilters = document.querySelectorAll(".shop-filter");
 const shopGroups = document.querySelectorAll(".shop-group");
 const productCards = document.querySelectorAll(".product-card");
 const shopModal = document.querySelector("#shop-modal");
+const shopNotice = document.querySelector("#shop-notice");
 
 shopFilters.forEach((filter) => {
   filter.addEventListener("click", () => {
@@ -803,6 +811,23 @@ shopFilters.forEach((filter) => {
 
 function closeShopModal() {
   closeModal(shopModal);
+}
+
+function closeShopNotice() {
+  closeModal(shopNotice);
+}
+
+if (shopNotice) {
+  requestAnimationFrame(() => openModal(shopNotice));
+  document
+    .querySelector("#shop-notice-close")
+    ?.addEventListener("click", closeShopNotice);
+  document
+    .querySelector("#shop-notice-confirm")
+    ?.addEventListener("click", closeShopNotice);
+  shopNotice.addEventListener("click", (event) => {
+    if (event.target === shopNotice) closeShopNotice();
+  });
 }
 
 productCards.forEach((card) => {
