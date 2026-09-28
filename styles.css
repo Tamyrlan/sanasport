@@ -1584,10 +1584,11 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: #00a64f;
 }
 .direction-tab[data-direction-filter="education"] {
-  color: var(--red);
+  color: var(--ink);
 }
 .direction-tab[data-direction-filter="education"]:hover {
-  background: #fde1e2;
+  background: var(--red);
+  color: #fff;
 }
 .direction-tab[data-direction-filter="education"].is-active {
   background: var(--red);
