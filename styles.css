@@ -1146,33 +1146,14 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   color: #999;
   padding: 54px 0 70px;
 }
-.footer__download {
-  background: var(--dark);
-}
-.footer__download-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 68px;
-}
-.footer__download-copy {
-  display: flex;
-  align-items: center;
-  color: #fff;
-}
-.footer__download-copy strong {
-  display: block;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: -0.5px;
+.footer__stores {
+  align-self: center;
 }
 .footer__download-actions {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
 }
 .footer .store-badge {
   display: inline-flex;
@@ -1221,8 +1202,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 }
 .footer__grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 50px;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr 1.25fr;
+  gap: 28px;
 }
 .logo--light {
   color: #fff;
@@ -1275,6 +1256,14 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   font-size: 10px;
 }
 @media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
+    gap: 24px;
+  }
+  .footer__stores {
+    grid-column: 4;
+    grid-row: 2;
+  }
   .nav {
     gap: 12px;
     font-size: 11px;
@@ -1313,16 +1302,19 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   .header {
     height: 72px;
   }
-  .footer__download-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 0;
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .footer__stores {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
   .footer__download-actions {
-    width: 100%;
+    width: fit-content;
   }
   .footer .store-badge {
-    flex: 1 1 0;
+    flex: 0 0 auto;
     min-width: 0;
   }
   .menu-toggle {
