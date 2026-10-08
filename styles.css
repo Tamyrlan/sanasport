@@ -1239,17 +1239,22 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: fit-content;
   margin: 30px 0 17px;
   color: #bbb;
 }
 .footer-social .social__link {
+  display: grid;
   width: 28px;
   height: 28px;
+  flex: 0 0 28px;
   margin: 0;
+  place-items: center;
   color: inherit;
 }
 .footer-social .social__link svg,
 .footer-social__phone svg {
+  display: block;
   width: 16px;
   height: 16px;
 }
@@ -1257,8 +1262,10 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   display: inline-flex !important;
   align-items: center;
   gap: 7px;
+  min-height: 28px;
   margin: 0 !important;
   color: inherit;
+  line-height: 1;
   white-space: nowrap;
 }
 .footer-social__phone:hover {
