@@ -1194,3 +1194,5 @@ mapSearchButton?.addEventListener("click", () => {
 
   revealTargets.forEach((element) => observer.observe(element));
 })();
+
+
