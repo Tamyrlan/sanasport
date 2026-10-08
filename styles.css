@@ -1147,9 +1147,9 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   padding: 54px 0 70px;
 }
 .footer__download {
-  background: #ebebeb;
-  border-top: 1px solid #d7d7d7;
-  border-bottom: 1px solid #d7d7d7;
+  background: #efefef;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
 }
 .footer__download-inner {
   display: flex;
@@ -1197,10 +1197,10 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   min-width: 182px;
   padding: 8px 14px 8px 10px;
   border-radius: 12px;
-  background: #fff;
-  border: 1px solid #d9d9d9;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid #d5d5d5;
   color: #1d1d1d;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03), 0 8px 18px rgba(19, 19, 19, 0.06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
   transition:
     transform 160ms var(--ease-out),
     border-color 160ms var(--ease-out),
@@ -1209,20 +1209,17 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .store-badge:hover,
 .store-badge:focus-visible {
   transform: translateY(-1px);
-  border-color: #c8c8c8;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 12px 24px rgba(19, 19, 19, 0.08);
+  border-color: #c7c7c7;
+  box-shadow: 0 4px 12px rgba(19, 19, 19, 0.06);
 }
 .store-badge__icon {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: #111;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1;
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  background: transparent;
 }
 .store-badge__meta {
   display: grid;
@@ -1237,15 +1234,6 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .store-badge__meta strong {
   font-size: 16px;
   letter-spacing: -0.3px;
-}
-.store-badge--google .store-badge__icon {
-  background: linear-gradient(135deg, #34a853, #4285f4);
-  font-size: 13px;
-}
-.store-badge--apple .store-badge__icon {
-  background: linear-gradient(135deg, #fbfbfb, #d5d5d5);
-  color: #111;
-  font-size: 17px;
 }
 .footer__grid {
   display: grid;
