@@ -94,6 +94,14 @@ a {
   width: 14px;
   height: 14px;
 }
+.contacts-social .social__link {
+  width: 36px;
+  height: 36px;
+}
+.contacts-social .social__link svg {
+  width: 21px;
+  height: 21px;
+}
 @media (hover: hover) and (pointer: fine) {
   .social__link:hover {
     color: #fff;

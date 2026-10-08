@@ -7,6 +7,15 @@ document.querySelectorAll(".topbar .social").forEach((social) => {
     '<a class="social__link social__link--whatsapp" href="https://wa.me/77000701036" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a>';
 });
 
+const contactDetails = document.querySelector(".contacts-copy dl");
+const topbarSocial = document.querySelector(".topbar .social");
+if (contactDetails && topbarSocial) {
+  const contactSocial = document.createElement("div");
+  contactSocial.className = "social contacts-social";
+  contactSocial.innerHTML = topbarSocial.innerHTML;
+  contactDetails.after(contactSocial);
+}
+
 document.querySelectorAll(".footer-social").forEach((social) => {
   social.innerHTML =
     '<a class="social__link social__link--whatsapp" href="https://wa.me/77000701036" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a><a class="footer-social__phone" href="tel:+77470947211" aria-label="Позвонить по номеру +7 (747) 094 72 11"><svg aria-hidden="true"><use href="images/social-icons.svg#phone"></use></svg><span>+7 (747) 094 72 11</span></a>';
@@ -56,7 +65,7 @@ function enableKazakhLanguage() {
     "О НАС": "БІЗ ТУРАЛЫ",
     "ТАРИФЫ": "ТАРИФТЕР",
     "ДЛЯ РОДИТЕЛЕЙ": "АТА-АНАЛАРҒА",
-    "СОТРУДНИЧЕСТВО": "ЫНТЫМАҚТАСТЫҚ",
+    "СОТРУДНИЧЕСТВО": "СЕРІКТЕСТІК",
     "НОВОСТИ": "ЖАҢАЛЫҚТАР",
     "КОНТАКТЫ": "БАЙЛАНЫС",
     "НОВОЕ": "ЖАҢА",
@@ -110,7 +119,7 @@ function enableKazakhLanguage() {
     "Размещение рекламы": "Жарнама орналастыру",
     "Оставить заявку на аренду": "Жалға алуға өтінім қалдыру",
     "Мы всегда на связи": "Біз әрдайым байланыстамыз",
-    "Аренда и сотрудничество": "Жалға алу және ынтымақтастық",
+    "Аренда и сотрудничество": "Жалға алу және серіктестік",
     "Подробнее об аренде": "Жалға алу туралы толығырақ",
     "Найти": "Табу",
     "Открыть в Яндекс.Картах ↗": "Яндекс.Карталарда ашу ↗",
@@ -249,12 +258,12 @@ function enableKazakhLanguage() {
   setText(".parent-modal__content small", "АТА-АНАЛАРҒА ПАЙДАЛЫ");
   setText(".parent-modal__content .button", "Сұрақ қою");
 
-  setText(".rental-heading .eyebrow", "ЫНТЫМАҚТАСТЫҚ");
+  setText(".rental-heading .eyebrow", "СЕРІКТЕСТІК");
   setText(".rental-heading h1", "Жалға алу және серіктестік");
-  setText(".rental-heading p", "Sana Sport-та біз өзара пайдалы серіктестікті жоғары бағалаймыз және денсаулықты, фитнесті және шығармашылықты дамытуға бағытталған ынтымақтастық түрлерін қарастыруға дайынбыз.");
+  setText(".rental-heading p", "Sana Sport-та біз өзара пайдалы серіктестікті жоғары бағалаймыз және денсаулықты, фитнесті және шығармашылықты дамытуға бағытталған серіктестік түрлерін қарастыруға дайынбыз.");
   setTextList(".rental-option h2", ["Алаң мен залдарды жалға алу", "Корпоративтік ұсыныстар", "Жарнама орналастыру"]);
   setTextList(".rental-option p", ["Жаттығуларға, іс-шараларға және жеке мақсаттарға арналған әртүрлі көлемдегі залдар — сағаттық жалға алу.", "Компания командалары мен қызметкерлеріне арналған спорт форматтары.", "Кешен аумағындағы адам көп жүретін жарнама орындары."]);
-  setText(".rental-cta h2", "Бірлескен жұмыста мүмкіндік көресіз бе?");
+  setText(".rental-cta h2", "Бірге жұмыс істеуге қалай қарайсыз?");
   setText(".rental-cta p", "Бізге info@sanasport.kz мекенжайы арқылы жазыңыз — бірге белсенді әрі салауатты өмірге шабыт беретін жобалар жасай аламыз.");
   setText(".rental-cta .button", "Жалға алуға өтінім қалдыру");
 
@@ -285,7 +294,7 @@ function enableKazakhLanguage() {
   setTextList(".contacts-copy dt", ["МЕКЕНЖАЙ", "ЖҰМЫС УАҚЫТЫ", "ТЕЛЕФОН", "ПОШТА"]);
   setText("#contact-address", "Астана қ., Қажымұқан көшесі, 5");
   setText(".contacts-copy dl > div:nth-child(2) dd", "Дс–Жс, 8:00–23:00, демалыссыз");
-  setText(".rental-box h2", "Жалға алу және ынтымақтастық");
+  setText(".rental-box h2", "Жалға алу және серіктестік");
   setText(".rental-box p", "Алаңдар мен залдарды жалға алу, корпоративтік ұсыныстар және жарнама орналастыру — info@sanasport.kz поштасына жазыңыз.");
   setText(".rental-box .button", "Жалға алу туралы толығырақ");
   setText(".map-search label", "Картадан мекенжайды табу");
@@ -492,7 +501,7 @@ const defaultContent = {
   heroDescription:
     "Более 20 кружков спорта, творчества и образования\nна 10 000 м². Один центр — весь день ребёнка.",
   address: "г. Астана, ул. Кажымукана, 5",
-  phone: "+7 (747) 094 71 97",
+  phone: "+7 (747) 094 72 11",
   heroImage: "images/placeholder.png",
   aboutImage: "images/waitingzone.png",
 };
