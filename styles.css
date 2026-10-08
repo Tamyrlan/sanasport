@@ -99,11 +99,22 @@ a {
     color: #fff;
     transform: translateY(-1px);
   }
+  .footer-social .social__link:hover {
+    transform: none;
+  }
   .social__link--whatsapp:hover {
     background: #25d366;
   }
   .social__link--instagram:hover {
     background: #d62976;
+  }
+  .footer-social .social__link--whatsapp:hover {
+    background: transparent;
+    color: #25d366;
+  }
+  .footer-social .social__link--instagram:hover {
+    background: transparent;
+    color: #d62976;
   }
 }
 .social__link:focus-visible {
@@ -542,6 +553,17 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   border-radius: 15px;
   padding: 22px;
 }
+.direction-grid .info-card {
+  display: flex;
+  flex-direction: column;
+}
+.direction-grid .info-card > img {
+  align-self: flex-start;
+  width: 78px;
+  height: 78px;
+  flex: 0 0 78px;
+  object-fit: scale-down;
+}
 .card-icon {
   display: flex;
   width: 45px;
@@ -572,7 +594,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 }
 .info-card a {
   display: block;
-  margin-top: 20px;
+  margin-top: auto;
   font-size: 12px;
   font-weight: 800;
 }
@@ -1141,9 +1163,33 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   margin: 7px 0;
 }
 .footer-social {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 30px 0 17px;
   color: #bbb;
+}
+.footer-social .social__link {
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  color: inherit;
+}
+.footer-social .social__link svg,
+.footer-social__phone svg {
+  width: 16px;
+  height: 16px;
+}
+.footer-social__phone {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  margin: 0 !important;
+  color: inherit;
+  white-space: nowrap;
+}
+.footer-social__phone:hover {
+  color: #fff;
 }
 .footer small {
   font-size: 10px;
@@ -3425,7 +3471,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   .modal-cta
 ):active {
   transform: translateY(1px) scale(0.97);
-  transition-duration: 100ms;
+  transition-duration: 110ms;
 }
 
 :is(
@@ -3441,7 +3487,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 
 @media (prefers-reduced-motion: reduce) {
   :is(button, .button, .tariff-card__button, .shop-order-button, .modal-cta) {
-    transition-duration: 100ms;
+    transition-duration: 110ms;
   }
 
   :is(
@@ -3464,7 +3510,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 }
 
 :root {
-  --page-transition-duration: 600ms;
+  --page-transition-duration: 110ms;
   --page-transition-blur: 12px;
   --page-transition-scale-out: 1.04;
   --page-transition-scale-in: 0.96;
@@ -3620,7 +3666,7 @@ body.is-leaving > :not(
 
 @media (prefers-reduced-motion: reduce) {
   :is(.direction-modal, .shop-modal, .parent-modal, .news-modal) {
-    transition-duration: 150ms;
+    transition-duration: 110ms;
   }
 
   :is(
@@ -3630,7 +3676,7 @@ body.is-leaving > :not(
     .news-modal__dialog
   ) {
     transform: none;
-    transition: opacity 150ms ease;
+    transition: opacity 110ms ease;
   }
 }
 
@@ -3715,8 +3761,8 @@ body.is-leaving > :not(
   .parents-faq summary b::before,
   .parents-faq summary b::after {
     transition:
-      background-color 100ms ease,
-      color 100ms ease;
+      background-color 110ms ease,
+      color 110ms ease;
   }
   .parents-faq summary b::before,
   .parents-faq summary b::after {

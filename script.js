@@ -1,10 +1,15 @@
-const menuToggle = document.querySelector(".menu-toggle");
+﻿const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".nav");
 const storageKey = "sana-sport-content";
 
 document.querySelectorAll(".topbar .social").forEach((social) => {
   social.innerHTML =
-    '<a class="social__link social__link--whatsapp" href="https://wa.me/77470947197" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a>';
+    '<a class="social__link social__link--whatsapp" href="https://wa.me/77000701036" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a>';
+});
+
+document.querySelectorAll(".footer-social").forEach((social) => {
+  social.innerHTML =
+    '<a class="social__link social__link--whatsapp" href="https://wa.me/77000701036" target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg aria-hidden="true"><use href="images/social-icons.svg#whatsapp"></use></svg></a><a class="social__link social__link--instagram" href="https://www.instagram.com/sanasportkz/" target="_blank" rel="noopener" aria-label="Открыть Instagram Sana Sport"><svg aria-hidden="true"><use href="images/social-icons.svg#instagram"></use></svg></a><a class="footer-social__phone" href="tel:+77470947211" aria-label="Позвонить по номеру +7 (747) 094 72 11"><svg aria-hidden="true"><use href="images/social-icons.svg#phone"></use></svg><span>+7 (747) 094 72 11</span></a>';
 });
 
 const languageQuery = new URLSearchParams(window.location.search).get("lang");
