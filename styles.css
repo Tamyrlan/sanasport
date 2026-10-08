@@ -1163,7 +1163,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 }
 .footer__download-copy strong {
   display: block;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 900;
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
@@ -1181,17 +1182,20 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   margin: 0;
   padding: 6px 10px;
   border-radius: 8px;
-  background: #111;
-  border: 1px solid #444;
+  background: #343434;
+  border: 1px solid #484848;
   color: #fff;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2), inset 0 1px rgba(255, 255, 255, 0.04);
   transition:
     transform 160ms var(--ease-out),
-    background-color 160ms var(--ease-out);
+    background-color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
 }
 .store-badge:hover,
 .store-badge:focus-visible {
   transform: translateY(-1px);
-  background: #1a1a1a;
+  background: #3a3a3a;
+  border-color: #555;
 }
 .store-badge__icon {
   display: block;
