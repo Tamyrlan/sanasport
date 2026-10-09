@@ -541,6 +541,97 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   font-weight: 800;
   margin-bottom: 18px;
 }
+.news-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 20px 0 28px;
+}
+.news-filter {
+  position: relative;
+  display: grid;
+  min-width: 250px;
+  gap: 5px;
+  padding: 11px 48px 11px 16px;
+  border: 1px solid #e5e8ef;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(14, 25, 44, 0.06);
+  color: var(--ink);
+  transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+.news-filter:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(39, 92, 190, 0.12);
+}
+.news-filter span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.news-filter select {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 700 14px var(--display-font);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+.news-filter::after {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f3f5f9;
+  color: var(--blue);
+  content: "⌄";
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+  transform: translateY(-25%);
+}
+.news-show-more {
+  border: 0;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #1e1f24;
+  padding: 11px 18px;
+  font: 700 14px var(--display-font);
+  cursor: pointer;
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+.news-show-more:hover,
+.news-show-more:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(245, 181, 38, 0.28);
+}
+.news-show-more[hidden] {
+  display: none;
+}
+.news-card.is-hidden {
+  display: none;
+}
+.news-empty {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--soft);
+  color: var(--muted);
+  text-align: center;
+}
+.news-empty.is-visible {
+  display: block;
+}
 .about h2,
 .section h2 {
   font-size: 32px;
@@ -3429,6 +3520,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   pointer-events: auto;
 }
 .news-modal__dialog {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: min(850px, 100%);
@@ -3458,6 +3550,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   position: absolute;
   right: 18px;
   top: 18px;
+  z-index: 1;
   width: 38px;
   height: 38px;
   border: 0;

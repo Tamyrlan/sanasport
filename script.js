@@ -986,17 +986,98 @@ shopModal?.addEventListener("click", (event) => {
 
 const newsCards = document.querySelectorAll(".news-card");
 const newsModal = document.querySelector("#news-modal");
-const newsImagePaths = ["images/news1.png", "images/news2.png", "images/news3.png"];
+const newsMonthFilter = document.querySelector("#news-month-filter");
+const newsShowMoreButton = document.querySelector("#news-show-more");
+const newsEmptyState = document.querySelector("#news-empty");
+const newsDefaultVisibleCount = 5;
+let newsExpanded = false;
 
-newsCards.forEach((card, index) => {
-  card.dataset.newsImage = newsImagePaths[index] ?? card.dataset.newsImage;
+newsCards.forEach((card) => {
+  const dateValue = card.dataset.newsDate || "";
+  const normalizedDate = dateValue.includes(" ") ? dateValue.replace(" ", "T") : dateValue;
+  const parsedDate = new Date(normalizedDate);
+  if (!Number.isNaN(parsedDate.getTime())) {
+    const monthKey = `${parsedDate.getFullYear()}-${String(parsedDate.getMonth() + 1).padStart(2, "0")}`;
+    card.dataset.newsMonth = monthKey;
+  }
 });
+
+function formatNewsMonthLabel(monthKey) {
+  if (!monthKey) return "";
+  const [year, month] = monthKey.split("-").map(Number);
+  const date = new Date(year, month - 1, 1);
+  return new Intl.DateTimeFormat("ru-RU", {
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
+
+function getFilteredNewsCards() {
+  const selectedMonth = newsMonthFilter?.value || "all";
+  return [...newsCards].filter((card) => {
+    if (selectedMonth === "all") return true;
+    return card.dataset.newsMonth === selectedMonth;
+  });
+}
+
+function applyNewsListState() {
+  const filteredCards = getFilteredNewsCards();
+  const visibleItems = newsExpanded ? filteredCards.length : Math.min(newsDefaultVisibleCount, filteredCards.length);
+
+  newsCards.forEach((card) => {
+    card.classList.add("is-hidden");
+  });
+
+  filteredCards.forEach((card, index) => {
+    const shouldShow = index < visibleItems;
+    card.classList.toggle("is-hidden", !shouldShow);
+  });
+
+  if (newsEmptyState) {
+    newsEmptyState.classList.toggle("is-visible", filteredCards.length === 0);
+  }
+
+  if (newsShowMoreButton) {
+    const shouldToggle = filteredCards.length > newsDefaultVisibleCount;
+    newsShowMoreButton.hidden = !shouldToggle;
+    newsShowMoreButton.textContent = newsExpanded ? "Скрыть" : "Показать ещё";
+  }
+}
+
+if (newsMonthFilter) {
+  const monthKeys = [...new Set([...newsCards].map((card) => card.dataset.newsMonth).filter(Boolean))].sort().reverse();
+  const options = ["<option value=\"all\">Все месяцы</option>"];
+
+  monthKeys.forEach((monthKey) => {
+    options.push(`<option value="${monthKey}">${formatNewsMonthLabel(monthKey)}</option>`);
+  });
+
+  newsMonthFilter.innerHTML = options.join("");
+  newsMonthFilter.addEventListener("change", () => {
+    newsExpanded = false;
+    applyNewsListState();
+  });
+}
+
+if (newsShowMoreButton) {
+  newsShowMoreButton.addEventListener("click", () => {
+    const filteredCards = getFilteredNewsCards();
+    if (!filteredCards.length) return;
+    newsExpanded = !newsExpanded;
+    applyNewsListState();
+  });
+}
+
+applyNewsListState();
 
 function closeNewsModal() {
   closeModal(newsModal);
 }
 
 function openNewsCard(card) {
+  const coverImage = card.querySelector(".news-card__image");
+  const coverBackground = coverImage ? getComputedStyle(coverImage).backgroundImage : "";
+
   document.querySelector("#news-modal-date").textContent =
     card.dataset.newsDate;
   document.querySelector("#news-modal-title").textContent =
@@ -1004,7 +1085,9 @@ function openNewsCard(card) {
   document.querySelector("#news-modal-text").textContent =
     card.dataset.newsText;
   document.querySelector("#news-modal-image").style.backgroundImage =
-    `url("${card.dataset.newsImage}")`;
+    coverBackground && coverBackground !== "none"
+      ? coverBackground
+      : `url("${card.dataset.newsImage}")`;
   openModal(newsModal);
 }
 
@@ -1027,9 +1110,17 @@ newsCards.forEach((card) => {
 
 document
   .querySelector("#news-modal-close")
-  ?.addEventListener("click", closeNewsModal);
+  ?.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeNewsModal();
+  });
 newsModal?.addEventListener("click", (event) => {
   if (event.target === newsModal) closeNewsModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && newsModal?.classList.contains("is-open")) {
+    closeNewsModal();
+  }
 });
 
 const parentArticles = document.querySelectorAll(".parent-article");
@@ -1194,5 +1285,4 @@ mapSearchButton?.addEventListener("click", () => {
 
   revealTargets.forEach((element) => observer.observe(element));
 })();
-
 
