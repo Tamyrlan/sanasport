@@ -741,6 +741,7 @@ function revealTrainerCards(cards) {
     .trim();
 
   cards.forEach((card, index) => {
+    card.classList.add("is-revealed");
     card.trainerFilterAnimation?.cancel();
     card.trainerFilterAnimation = card.animate(
       [
@@ -767,7 +768,8 @@ trainerTabs.forEach((tab) => {
     trainerCards.forEach((card) =>
       card.classList.toggle(
         "is-hidden",
-        category !== "all" && card.dataset.trainerCategory !== category,
+        category !== "all" &&
+          !card.dataset.trainerCategory.split(/\s+/).includes(category),
       ),
     );
     revealTrainerCards(
@@ -783,14 +785,14 @@ function closeTrainerModal() {
 }
 
 function openTrainerCard(card) {
-  const avatar = card.querySelector(".avatar");
+  const photo = card.querySelector(".trainer-photo");
   const modalAvatar = document.querySelector("#trainer-modal-avatar");
   document.querySelector("#trainer-modal-name").textContent =
     card.querySelector("h3").textContent.replace(/\s+/g, " ").trim();
   document.querySelector("#trainer-modal-role").textContent =
     card.querySelector("p").textContent;
-  modalAvatar.textContent = avatar.textContent;
-  modalAvatar.className = `trainer-modal__avatar ${avatar.className}`;
+  modalAvatar.replaceChildren(photo.cloneNode());
+  modalAvatar.className = "trainer-modal__avatar";
   openModal(trainerModal);
 }
 
@@ -1237,6 +1239,7 @@ mapSearchButton?.addEventListener("click", () => {
     "main > section",
     "footer.footer",
     ".direction-card",
+    ".trainer-grid article",
     ".product-card",
     ".news-card",
     ".parent-article",
@@ -1247,6 +1250,7 @@ mapSearchButton?.addEventListener("click", () => {
   const revealTargets = document.querySelectorAll(revealSelector);
   const staggeredSelector = [
     ".direction-card",
+    ".trainer-grid article",
     ".product-card",
     ".news-card",
     ".parent-article",
@@ -1285,4 +1289,3 @@ mapSearchButton?.addEventListener("click", () => {
 
   revealTargets.forEach((element) => observer.observe(element));
 })();
-
