@@ -968,6 +968,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   width: 100%;
   height: 245px;
   object-fit: cover;
+  object-position: center;
 }
 .trainer-grid article:hover {
   transform: translateY(-3px);
