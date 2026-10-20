@@ -965,6 +965,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   display: flex;
   margin: 24px auto 0;
   min-width: 180px;
+  border-width: 1px;
 }
 .trainer-toggle[hidden] {
   display: none;
@@ -2161,6 +2162,15 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   font-size: 21px;
   font-weight: 900;
   -webkit-text-stroke: 0.25px currentColor;
+}
+.direction-modal__currency {
+  font-weight: 500;
+  -webkit-text-stroke: 0;
+}
+.direction-modal__period {
+  font-size: 14px;
+  font-weight: 500;
+  -webkit-text-stroke: 0;
 }
 .direction-modal__content p {
   color: #777;

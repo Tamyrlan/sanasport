@@ -779,17 +779,20 @@ function updateTrainerCards(animate = false) {
     .getPropertyValue("grid-template-columns")
     .trim()
     .split(/\s+/).length;
+  const visibleCardCount = columns * 2;
 
   trainerCards.forEach((card) => {
     const matchIndex = matchingCards.indexOf(card);
     card.classList.toggle("is-hidden", matchIndex === -1);
     card.classList.toggle(
       "is-collapsed",
-      matchIndex !== -1 && !areTrainersExpanded && matchIndex >= columns,
+      matchIndex !== -1 &&
+        !areTrainersExpanded &&
+        matchIndex >= visibleCardCount,
     );
   });
 
-  trainerToggle.hidden = matchingCards.length <= columns;
+  trainerToggle.hidden = matchingCards.length <= visibleCardCount;
   trainerToggle.textContent =
     activeLanguage === "kz"
       ? areTrainersExpanded
@@ -802,7 +805,9 @@ function updateTrainerCards(animate = false) {
 
   if (animate) {
     revealTrainerCards(
-      areTrainersExpanded ? matchingCards : matchingCards.slice(0, columns),
+      areTrainersExpanded
+        ? matchingCards
+        : matchingCards.slice(0, visibleCardCount),
     );
   }
 }
@@ -875,8 +880,10 @@ function openDirectionCard(card) {
     card.dataset.description;
   document.querySelector("#modal-price").textContent =
     activeLanguage === "kz"
-      ? `${card.dataset.price} ₸ / айына`
-      : `от ${card.dataset.price} ₸ / месяц`;
+      ? card.dataset.price
+      : `от ${card.dataset.price}`;
+  document.querySelector("#modal-price-period").textContent =
+    activeLanguage === "kz" ? " / айына" : " / месяц";
   document.querySelector("#modal-image").style.backgroundImage =
     `url("${card.dataset.image}")`;
   openModal(directionModal);
