@@ -740,6 +740,10 @@ directionTabs.forEach((tab) => {
 
 const trainerTabs = document.querySelectorAll("[data-trainer-filter]");
 const trainerCards = document.querySelectorAll(".trainer-grid article");
+const trainerGrid = document.querySelector("#trainer-grid");
+const trainerToggle = document.querySelector("#trainer-toggle");
+let activeTrainerCategory = "sport";
+let areTrainersExpanded = false;
 
 function revealTrainerCards(cards) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -765,26 +769,63 @@ function revealTrainerCards(cards) {
   });
 }
 
+function updateTrainerCards(animate = false) {
+  if (!trainerGrid || !trainerToggle) return;
+
+  const matchingCards = [...trainerCards].filter((card) =>
+    card.dataset.trainerCategory.split(/\s+/).includes(activeTrainerCategory),
+  );
+  const columns = getComputedStyle(trainerGrid)
+    .getPropertyValue("grid-template-columns")
+    .trim()
+    .split(/\s+/).length;
+
+  trainerCards.forEach((card) => {
+    const matchIndex = matchingCards.indexOf(card);
+    card.classList.toggle("is-hidden", matchIndex === -1);
+    card.classList.toggle(
+      "is-collapsed",
+      matchIndex !== -1 && !areTrainersExpanded && matchIndex >= columns,
+    );
+  });
+
+  trainerToggle.hidden = matchingCards.length <= columns;
+  trainerToggle.textContent =
+    activeLanguage === "kz"
+      ? areTrainersExpanded
+        ? "Жасыру"
+        : "Барлығын көрсету"
+      : areTrainersExpanded
+        ? "Скрыть"
+        : "Показать всех";
+  trainerToggle.setAttribute("aria-expanded", String(areTrainersExpanded));
+
+  if (animate) {
+    revealTrainerCards(
+      areTrainersExpanded ? matchingCards : matchingCards.slice(0, columns),
+    );
+  }
+}
+
 trainerTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
+    activeTrainerCategory = tab.dataset.trainerFilter;
+    areTrainersExpanded = false;
     trainerTabs.forEach((item) => {
       item.classList.toggle("is-active", item === tab);
       item.setAttribute("aria-selected", String(item === tab));
     });
-
-    const category = tab.dataset.trainerFilter;
-    trainerCards.forEach((card) =>
-      card.classList.toggle(
-        "is-hidden",
-        category !== "all" &&
-          !card.dataset.trainerCategory.split(/\s+/).includes(category),
-      ),
-    );
-    revealTrainerCards(
-      [...trainerCards].filter((card) => !card.classList.contains("is-hidden")),
-    );
+    updateTrainerCards(true);
   });
 });
+
+trainerToggle?.addEventListener("click", () => {
+  areTrainersExpanded = !areTrainersExpanded;
+  updateTrainerCards(true);
+});
+
+updateTrainerCards();
+window.addEventListener("resize", () => updateTrainerCards());
 
 const trainerModal = document.querySelector("#trainer-modal");
 

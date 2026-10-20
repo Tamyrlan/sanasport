@@ -911,9 +911,6 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: var(--trainer-tab-color);
   transition: width 0.3s ease;
 }
-.tab[data-trainer-filter="all"] {
-  --trainer-tab-color: var(--yellow);
-}
 .tab[data-trainer-filter="sport"] {
   --trainer-tab-color: var(--green);
 }
@@ -929,9 +926,6 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: var(--trainer-tab-color);
   box-shadow: 0 6px 14px color-mix(in srgb, var(--trainer-tab-color) 32%, transparent);
 }
-.tab[data-trainer-filter="all"].is-active {
-  color: #242424;
-}
 @media (hover: hover) and (pointer: fine) {
   .tab:hover {
     color: #fff;
@@ -940,9 +934,6 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   }
   .tab:hover::after {
     width: 100%;
-  }
-  .tab[data-trainer-filter="all"]:hover {
-    color: #242424;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -957,11 +948,22 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .trainer-grid article.is-hidden {
   display: none;
 }
+.trainer-grid article.is-collapsed {
+  display: none;
+}
 .trainer-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   overflow: hidden;
+}
+.trainer-toggle {
+  display: flex;
+  margin: 24px auto 0;
+  min-width: 180px;
+}
+.trainer-toggle[hidden] {
+  display: none;
 }
 .trainer-grid article {
   background: var(--soft);
@@ -1557,8 +1559,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
     flex: 0 0 auto;
   }
   .trainer-grid {
-    grid-template-columns: repeat(2, 220px);
-    overflow: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
   }
   .contact {
     display: block;
@@ -2155,11 +2157,12 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .direction-modal__content > strong {
   font-size: 13px;
 }
-.direction-modal__content > .direction-modal__price {
+.direction-modal__content > strong.direction-modal__price {
   margin-top: 14px;
   color: #211a18;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 21px;
+  font-weight: 900;
+  -webkit-text-stroke: 0.25px currentColor;
 }
 .direction-modal__content p {
   color: #777;
