@@ -650,6 +650,13 @@ if (activeLanguage === "kz") enableKazakhLanguage();
 const directionTabs = document.querySelectorAll(".direction-tab");
 const directionCards = document.querySelectorAll(".direction-card");
 const directionModal = document.querySelector("#direction-modal");
+const directionPriceAmounts = [
+  "24 900", "24 900", "24 900", "27 900", "24 900", "29 900",
+  "27 900", "27 900", "27 900", "27 900", "27 900", "18 000",
+  "24 900", "24 900", "24 900", "24 900", "24 900", "18 000",
+  "18 000", "18 000", "18 000", "18 000", "18 000", "20 000",
+  "20 000", "20 000", "20 000", "20 000",
+];
 const directionImagePaths = [
   "images/football.png", "images/volleyball.png", "images/basketball.png",
   "images/jiujitsu.png", "images/chess.png", "images/tennis.png",
@@ -663,6 +670,7 @@ const directionImagePaths = [
 
 directionCards.forEach((card, index) => {
   card.dataset.image = directionImagePaths[index] ?? card.dataset.image;
+  card.dataset.price = directionPriceAmounts[index] ?? "";
 });
 
 function openModal(modal) {
@@ -824,6 +832,10 @@ function openDirectionCard(card) {
   document.querySelector("#modal-age").textContent = card.dataset.age;
   document.querySelector("#modal-description").textContent =
     card.dataset.description;
+  document.querySelector("#modal-price").textContent =
+    activeLanguage === "kz"
+      ? `${card.dataset.price} ₸ / айына`
+      : `от ${card.dataset.price} ₸ / месяц`;
   document.querySelector("#modal-image").style.backgroundImage =
     `url("${card.dataset.image}")`;
   openModal(directionModal);
