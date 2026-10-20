@@ -253,6 +253,10 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
     box-shadow 0.3s ease,
     transform 0.3s ease;
 }
+.nav a[href="parents.html"] {
+  width: 132px;
+  white-space: nowrap;
+}
 .nav a::after {
   position: absolute;
   z-index: -1;
@@ -2016,12 +2020,6 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   color: #777;
   font-size: 11px;
   line-height: 1.35;
-}
-.direction-card__body:after {
-  content: "";
-  border-top: 1px solid #ddd;
-  margin-top: auto;
-  margin-bottom: 11px;
 }
 .choose-direction {
   align-self: stretch;
