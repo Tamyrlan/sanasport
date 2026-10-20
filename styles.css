@@ -167,11 +167,22 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   width: 142px;
 }
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  isolation: isolate;
   height: 94px;
   display: flex;
   align-items: center;
   gap: 34px;
+}
+.header::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 -100vw;
+  content: "";
+  background: #f4f4f4;
+  box-shadow: 0 6px 14px #0001;
 }
 .logo {
   display: flex;
@@ -242,12 +253,14 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 92px;
+  width: auto;
+  min-width: 92px;
   min-height: 42px;
-  padding: 10px 16px;
+  padding: 10px 12px;
   border-radius: 999px;
   text-align: center;
   line-height: 1.15;
+  white-space: nowrap;
   transition:
     color 0.3s ease,
     box-shadow 0.3s ease,
@@ -1452,6 +1465,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
     min-width: 0;
   }
   .menu-toggle {
+    position: relative;
+    z-index: 20;
     display: block;
     margin-left: auto;
   }
@@ -1465,7 +1480,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
     background: #fff;
     box-shadow: 0 8px 20px #0002;
     border-radius: 12px;
-    z-index: 5;
+    z-index: 20;
     flex-direction: column;
   }
   .nav a {
