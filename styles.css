@@ -395,7 +395,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background-repeat: no-repeat;
 }
 .promo--navy {
-  background-image: url("images/polechudes.png");
+  background-image: url("images/polechudes.png?v=2");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
