@@ -1773,20 +1773,20 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   color: #d8101a;
 }
 .parents-heading .eyebrow {
-  background: #e3f5eb;
-  color: #07844e;
+  background: var(--yellow);
+  color: #242424;
 }
 .rental-heading .eyebrow {
-  background: #e5f0ff;
-  color: #2774d1;
+  background: var(--red);
+  color: #fff;
 }
 .contacts-copy .eyebrow {
-  background: #fde1e2;
-  color: #d8101a;
+  background: var(--blue);
+  color: #fff;
 }
 .news-heading .eyebrow {
-  background: #fff0bf;
-  color: #9b7100;
+  background: var(--green);
+  color: #fff;
 }
 .tariffs-heading h1 {
   margin: 14px 0 8px;
@@ -1918,8 +1918,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   margin-bottom: 16px;
   padding: 7px 11px;
   border-radius: 999px;
-  background: #e5f0ff;
-  color: #2774d1;
+  background: var(--blue);
+  color: #fff;
   font-size: 13px;
   letter-spacing: 1px;
 }
@@ -2318,8 +2318,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   margin-bottom: 18px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: #e3f5eb;
-  color: #07844e;
+  background: var(--yellow);
+  color: #242424;
   font-size: 14px;
   letter-spacing: 1.2px;
 }
