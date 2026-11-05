@@ -92,6 +92,8 @@ function enableKazakhLanguage() {
     "Все тарифы →": "Барлық тарифтер →",
     "Перейти в магазин": "Дүкенге өту",
     "Тренеры и преподаватели": "Жаттықтырушылар мен оқытушылар",
+    "Должность": "Лауазымы",
+    "Достижения": "Жетістіктері",
     "Вопрос-ответ": "Сұрақ-жауап",
     "Отправить заявку": "Өтінім жіберу",
     "Ваше имя": "Атыңыз",
@@ -308,22 +310,16 @@ function enableKazakhLanguage() {
   setText(".shop-heading p", "Жаттығулар мен күнделікті өмірге арналған киім және аксессуарлар.");
   setTextList(".shop-filter", ["Барлық тауарлар", "Балалар", "Киім", "Жабдық", "Кәдесыйлар"]);
   setTextList(".shop-group__heading h2", ["Балалар", "Киім", "Жабдық", "Кәдесыйлар"]);
-  const kazakhProducts = [
-    ["Sana Kids футболкасы", "6 / 14 жас"], ["Жасыл Sana Kids футболкасы", "6 / 8 / 10 / 12 / 14 жас"], ["Ақ Sana Kids футболкасы", "6 / 14 жас"],
-    ["Erkin oila, batyl jasa", "XS / S"], ["Sheksiz mumkindik", "XS / S"], ["Kishkentai qadamdar ulken jetistikke aparady", "XS / S"],
-    ["Sana Sport рюкзагы", "Бірыңғай өлшем"], ["Спорт сөмкесі", "Бірыңғай өлшем"], ["Түсті Sana Sport рюкзагы", "Бірыңғай өлшем"],
-    ["Sana Sport дәптері", "Бірыңғай өлшем"], ["Sana Sport термобөтелкесі", "Бірыңғай өлшем"], ["Sana Sport бөтелкесі", "Бірыңғай өлшем"],
-  ];
-  document.querySelectorAll(".product-card").forEach((card, index) => {
-    const translation = kazakhProducts[index];
-    if (!translation) return;
-    const [title, size] = translation;
-    card.dataset.product = title;
-    card.dataset.size = size;
-    card.querySelector("h3").textContent = title;
-    card.querySelector("small").textContent = size;
+  document.querySelectorAll(".product-card").forEach((card) => {
+    card.dataset.product = card.dataset.productKk;
+    card.dataset.price = card.dataset.priceKk;
+    card.querySelector("h3").textContent = card.dataset.productKk;
+    card.querySelector(".product-image img").alt = card.dataset.productKk;
+    card.querySelector(".product-image span").textContent =
+      card.dataset.categoryKk;
+    card.querySelector(".product-info small").textContent =
+      card.dataset.statusKk;
   });
-  setTextList(".product-image span", ["Балалар", "Балалар", "Балалар", "Киім", "Киім", "Киім", "Жабдық", "Жабдық", "Жабдық", "Кәдесыйлар", "Кәдесыйлар", "Кәдесыйлар"]);
   setText(".shop-modal__content small", "SANA SHOP ТАУАРЫ");
   setText(".shop-modal__content p", "Өлшемді таңдаңыз, тапсырысты растау үшін әкімші сізбен байланысады.");
   const shopSizeLabel = document.querySelector(".shop-modal__content label");
@@ -331,10 +327,7 @@ function enableKazakhLanguage() {
   setText(".shop-order-button", "Тауарға тапсырыс беру");
   setText(".trainer-modal__content small", "SANA SPORT КОМАНДАСЫ");
   setText(".trainer-modal__content .button", "Бізбен байланысу");
-  setText("#shop-notice-title", "Тауарлар каталогы");
-  setText("#shop-notice-description", "Каталогта Sana Sport-та қазір бар тауарлар көрсетілген.");
-  setText("#shop-notice-pickup", "Жеткізу жоқ — тауарларды тек орталықтың өзінен сатып алуға болады.");
-  setText("#shop-notice-confirm", "Түсінікті");
+  setText("#shop-delivery-note", "Жеткізу жоқ — тауарларды тек орталықтың өзінен сатып алуға болады.");
 
   document.querySelectorAll(".contact").forEach((contact) => {
     setText(".contact h2", "Тегін сынақ сабағын алыңыз");
@@ -644,6 +637,77 @@ if (adminForm) {
   applyContent();
 }
 
+function renderShopProducts() {
+  const shopGrids = document.querySelectorAll("[data-shop-grid]");
+  if (!shopGrids.length) return;
+  if (!Array.isArray(window.sanaShopProducts)) {
+    throw new Error("Sana Shop product data failed to load.");
+  }
+
+  const categoryLabels = {
+    kids: { ru: "Kids", kk: "Балалар" },
+    clothes: { ru: "Одежда", kk: "Киім" },
+    equipment: { ru: "Экипировка", kk: "Жабдық" },
+    souvenirs: { ru: "Сувениры", kk: "Кәдесыйлар" },
+  };
+  const priceLabels =
+    activeLanguage === "kz"
+      ? { price: "Бағасы нақтыланады", status: "Бағасы сұрау бойынша" }
+      : { price: "Цена уточняется", status: "Уточняйте при заказе" };
+  const description =
+    activeLanguage === "kz"
+      ? "Өлшемі, бағасы және бар-жоғын тапсырысты растау кезінде әкімшіден нақтылаңыз."
+      : "Размер, цену и наличие уточните у администратора при подтверждении заказа.";
+
+  window.sanaShopProducts.forEach((product) => {
+    const grid = document.querySelector(`[data-shop-grid="${product.category}"]`);
+    const labels = categoryLabels[product.category];
+    const card = document.createElement("article");
+    const imageContainer = document.createElement("div");
+    const image = document.createElement("img");
+    const category = document.createElement("span");
+    const info = document.createElement("div");
+    const title = document.createElement("h3");
+    const footer = document.createElement("div");
+    const price = document.createElement("strong");
+    const status = document.createElement("small");
+
+    card.className = "product-card";
+    card.dataset.shopCategory = product.category;
+    card.dataset.gallery = (product.gallery || [product.image]).join(",");
+    card.dataset.product = product.name;
+    card.dataset.productKk = product.kk;
+    card.dataset.price = priceLabels.price;
+    card.dataset.priceKk = "Бағасы нақтыланады";
+    card.dataset.categoryKk = labels.kk;
+    card.dataset.statusKk = "Бағасын нақтылаңыз";
+    card.dataset.hasSize = "false";
+    card.dataset.descriptionRu = description;
+    card.dataset.descriptionKk =
+      "Өлшемі, бағасы және бар-жоғын тапсырысты растау кезінде әкімшіден нақтылаңыз.";
+    card.dataset.description =
+      activeLanguage === "kz" ? card.dataset.descriptionKk : description;
+
+    imageContainer.className = "product-image";
+    image.src = `images/sana%20shop/${product.image}.png`;
+    image.alt = activeLanguage === "kz" ? product.kk : product.name;
+    image.loading = "lazy";
+    category.textContent =
+      activeLanguage === "kz" ? labels.kk : labels.ru;
+    info.className = "product-info";
+    title.textContent = activeLanguage === "kz" ? product.kk : product.name;
+    footer.append(price, status);
+    price.textContent = priceLabels.price;
+    status.textContent = priceLabels.status;
+    info.append(title, footer);
+    imageContainer.append(image, category);
+    card.append(imageContainer, info);
+    grid.append(card);
+  });
+}
+
+renderShopProducts();
+
 // Apply the locale after saved editor content has restored the hero copy.
 if (activeLanguage === "kz") enableKazakhLanguage();
 
@@ -833,6 +897,30 @@ updateTrainerCards();
 window.addEventListener("resize", () => updateTrainerCards());
 
 const trainerModal = document.querySelector("#trainer-modal");
+const trainerLanguageLabels = [
+  ["kk", "Қазақша"],
+  ["ru", "Русский"],
+  ["en", "English"],
+];
+
+function renderTrainerLanguages(container, translations) {
+  container.replaceChildren();
+
+  trainerLanguageLabels.forEach(([language, label]) => {
+    const text = translations?.[language]?.trim();
+    if (!text) return;
+
+    const row = document.createElement("p");
+    const languageLabel = document.createElement("strong");
+    languageLabel.textContent = label;
+    const value = document.createElement("span");
+    value.textContent = text;
+    row.append(languageLabel, value);
+    container.append(row);
+  });
+
+  return container.childElementCount > 0;
+}
 
 function closeTrainerModal() {
   closeModal(trainerModal);
@@ -841,6 +929,24 @@ function closeTrainerModal() {
 function openTrainerCard(card) {
   const photo = card.querySelector(".trainer-photo");
   const modalAvatar = document.querySelector("#trainer-modal-avatar");
+  const profile = window.trainerProfiles?.[photo.getAttribute("src").split("/").pop()];
+  const roleSection = document.querySelector("#trainer-modal-roles-section");
+  const achievementsSection = document.querySelector(
+    "#trainer-modal-achievements-section",
+  );
+  const hasRoles = renderTrainerLanguages(
+    document.querySelector("#trainer-modal-roles"),
+    profile?.roles,
+  );
+  const hasAchievements = renderTrainerLanguages(
+    document.querySelector("#trainer-modal-achievements"),
+    profile?.achievements,
+  );
+
+  roleSection.hidden = !hasRoles;
+  achievementsSection.hidden = !hasAchievements;
+  document.querySelector("#trainer-modal-details").hidden =
+    !hasRoles && !hasAchievements;
   document.querySelector("#trainer-modal-name").textContent =
     card.querySelector("h3").textContent.replace(/\s+/g, " ").trim();
   document.querySelector("#trainer-modal-role").textContent =
@@ -916,7 +1022,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeDirectionModal();
     closeTrainerModal();
-    closeShopNotice();
   }
 });
 
@@ -924,59 +1029,8 @@ const shopFilters = document.querySelectorAll(".shop-filter");
 const shopGroups = document.querySelectorAll(".shop-group");
 const productCards = document.querySelectorAll(".product-card");
 const shopModal = document.querySelector("#shop-modal");
-const shopNotice = document.querySelector("#shop-notice");
 const shopModalDescription = document.querySelector(".shop-modal__content p");
 const defaultShopModalDescription = shopModalDescription?.textContent ?? "";
-const pickupOnlyDescriptions =
-  activeLanguage === "kz"
-    ? {
-        equipment: [
-          "Жаттығуға және күнделікті қолдануға арналған ыңғайлы рюкзак.",
-          "Спорттық заттарды өзіңізбен алып жүруге арналған кең сөмке.",
-          "Күнделікті қажетті заттарға арналған жарқын Sana Sport рюкзагы.",
-        ],
-        souvenirs: [
-          "Жоспарлар мен жазбаларға арналған фирмалық дәптер.",
-          "Сусынның температурасын ұзақ сақтайтын термобөтелке.",
-          "Жаттығуға және күнделікті қолдануға арналған жеңіл бөтелке.",
-        ],
-      }
-    : {
-        equipment: [
-          "Удобный рюкзак для тренировок и повседневного использования.",
-          "Вместительная сумка для спортивных вещей.",
-          "Яркий рюкзак Sana Sport для нужных мелочей на каждый день.",
-        ],
-        souvenirs: [
-          "Фирменный блокнот для планов и записей.",
-          "Термобутылка, которая дольше сохраняет температуру напитка.",
-          "Лёгкая бутылка для тренировок и повседневных дел.",
-        ],
-      };
-
-const pickupOnlyIndices = {};
-productCards.forEach((card) => {
-  const category = card.dataset.shopCategory;
-  const descriptions = pickupOnlyDescriptions[category];
-  if (!descriptions) return;
-
-  const index = pickupOnlyIndices[category] ?? 0;
-  pickupOnlyIndices[category] = index + 1;
-  const description = descriptions[index];
-  card.dataset.hasSize = "false";
-  card.dataset.description = description;
-  card.querySelector(".product-info small")?.remove();
-
-  const productInfo = card.querySelector(".product-info");
-  const priceRow = productInfo?.querySelector("div");
-  if (productInfo && priceRow) {
-    const descriptionElement = document.createElement("p");
-    descriptionElement.className = "product-info__description";
-    descriptionElement.textContent = description;
-    priceRow.before(descriptionElement);
-  }
-});
-
 shopFilters.forEach((filter) => {
   filter.addEventListener("click", () => {
     shopFilters.forEach((item) => item.classList.remove("is-active"));
@@ -995,31 +1049,48 @@ function closeShopModal() {
   closeModal(shopModal);
 }
 
-function closeShopNotice() {
-  closeModal(shopNotice);
-}
-
-if (shopNotice) {
-  requestAnimationFrame(() => openModal(shopNotice));
-  document
-    .querySelector("#shop-notice-close")
-    ?.addEventListener("click", closeShopNotice);
-  document
-    .querySelector("#shop-notice-confirm")
-    ?.addEventListener("click", closeShopNotice);
-  shopNotice.addEventListener("click", (event) => {
-    if (event.target === shopNotice) closeShopNotice();
-  });
-}
-
 productCards.forEach((card) => {
   card.addEventListener("click", () => {
+    const productImage = card.querySelector(".product-image img");
+    const modalImage = document.querySelector("#shop-modal-image");
+    const thumbnails = document.querySelector("#shop-modal-thumbnails");
+    const galleryImages = card.dataset.gallery.split(",");
     document.querySelector("#shop-modal-title").textContent =
       card.dataset.product;
     document.querySelector("#shop-modal-price").textContent =
       card.dataset.price;
-    document.querySelector("#shop-modal-image").className =
-      `shop-modal__image ${card.querySelector(".product-image").className.replace("product-image", "")}`;
+    modalImage.src = productImage.src;
+    modalImage.alt = productImage.alt;
+    thumbnails.replaceChildren();
+    thumbnails.hidden = galleryImages.length < 2;
+    galleryImages.forEach((imageNumber, index) => {
+      const thumbnailButton = document.createElement("button");
+      const thumbnailImage = document.createElement("img");
+      const imagePath = `images/sana%20shop/${imageNumber}.png`;
+      thumbnailButton.type = "button";
+      thumbnailButton.className = "shop-modal__thumbnail";
+      thumbnailButton.setAttribute(
+        "aria-label",
+        activeLanguage === "kz"
+          ? `${index + 1}-суретті көрсету`
+          : `Показать фото ${index + 1}`,
+      );
+      thumbnailButton.setAttribute("aria-pressed", String(index === 0));
+      thumbnailImage.src = imagePath;
+      thumbnailImage.alt = "";
+      thumbnailImage.loading = "lazy";
+      thumbnailButton.append(thumbnailImage);
+      thumbnailButton.addEventListener("click", () => {
+        modalImage.src = imagePath;
+        modalImage.alt = productImage.alt;
+        thumbnails
+          .querySelectorAll(".shop-modal__thumbnail")
+          .forEach((button) =>
+            button.setAttribute("aria-pressed", String(button === thumbnailButton)),
+          );
+      });
+      thumbnails.append(thumbnailButton);
+    });
     const sizeSelect = document.querySelector("#shop-modal-size");
     const sizeLabel = sizeSelect?.closest("label");
     const hasSize = card.dataset.hasSize !== "false";
@@ -1296,7 +1367,7 @@ mapSearchButton?.addEventListener("click", () => {
   if (prefersReducedMotion || !("IntersectionObserver" in window)) return;
 
   const revealSelector = [
-    "main > section",
+    "main > section:not(.shop-catalog)",
     "footer.footer",
     ".direction-card",
     ".trainer-grid article",
