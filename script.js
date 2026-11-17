@@ -493,7 +493,7 @@ const defaultContent = {
     "Более 20 кружков спорта, творчества и образования\nна 10 000 м². Один центр — весь день ребёнка.",
   address: "г. Астана, ул. Кажымукана, 5",
   phone: "+7 (747) 094 72 11",
-  heroImage: "images/placeholder.png",
+  heroImage: "images/hero-building.png",
   aboutImage: "images/waitingzone.png",
 };
 
@@ -1100,10 +1100,13 @@ shopModal?.addEventListener("click", (event) => {
 const newsCards = document.querySelectorAll(".news-card");
 const newsModal = document.querySelector("#news-modal");
 const newsMonthFilter = document.querySelector("#news-month-filter");
+const newsMonthFilterValue = document.querySelector("#news-month-filter-value");
+const newsMonthOptions = document.querySelector("#news-month-options");
 const newsShowMoreButton = document.querySelector("#news-show-more");
 const newsEmptyState = document.querySelector("#news-empty");
 const newsDefaultVisibleCount = 5;
 let newsExpanded = false;
+let selectedNewsMonth = "all";
 
 newsCards.forEach((card) => {
   const dateValue = card.dataset.newsDate || "";
@@ -1126,10 +1129,9 @@ function formatNewsMonthLabel(monthKey) {
 }
 
 function getFilteredNewsCards() {
-  const selectedMonth = newsMonthFilter?.value || "all";
   return [...newsCards].filter((card) => {
-    if (selectedMonth === "all") return true;
-    return card.dataset.newsMonth === selectedMonth;
+    if (selectedNewsMonth === "all") return true;
+    return card.dataset.newsMonth === selectedNewsMonth;
   });
 }
 
@@ -1157,18 +1159,108 @@ function applyNewsListState() {
   }
 }
 
-if (newsMonthFilter) {
+if (newsMonthFilter && newsMonthFilterValue && newsMonthOptions) {
   const monthKeys = [...new Set([...newsCards].map((card) => card.dataset.newsMonth).filter(Boolean))].sort().reverse();
-  const options = ["<option value=\"all\">Все месяцы</option>"];
+  const months = [
+    { key: "all", label: "Все месяцы" },
+    ...monthKeys.map((key) => ({ key, label: formatNewsMonthLabel(key) })),
+  ];
 
-  monthKeys.forEach((monthKey) => {
-    options.push(`<option value="${monthKey}">${formatNewsMonthLabel(monthKey)}</option>`);
+  months.forEach(({ key, label }) => {
+    const option = document.createElement("div");
+    option.className = "news-filter__option";
+    option.id = `news-month-option-${key}`;
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", String(key === selectedNewsMonth));
+    option.tabIndex = -1;
+    option.dataset.month = key;
+    option.textContent = label;
+    newsMonthOptions.append(option);
   });
 
-  newsMonthFilter.innerHTML = options.join("");
-  newsMonthFilter.addEventListener("change", () => {
+  function getNewsMonthOptionIndex() {
+    return [...newsMonthOptions.querySelectorAll('[role="option"]')].findIndex(
+      (option) => option.dataset.month === selectedNewsMonth,
+    );
+  }
+
+  function focusNewsMonthOption(index) {
+    const options = [...newsMonthOptions.querySelectorAll('[role="option"]')];
+    if (!options.length) return;
+    const boundedIndex = Math.max(0, Math.min(index, options.length - 1));
+    options[boundedIndex].focus();
+  }
+
+  function closeNewsMonthOptions({ restoreFocus = false } = {}) {
+    newsMonthOptions.hidden = true;
+    newsMonthFilter.setAttribute("aria-expanded", "false");
+    newsMonthFilter.closest(".news-filter").classList.remove("is-open");
+    if (restoreFocus) newsMonthFilter.focus();
+  }
+
+  function openNewsMonthOptions() {
+    newsMonthOptions.hidden = false;
+    newsMonthFilter.setAttribute("aria-expanded", "true");
+    newsMonthFilter.closest(".news-filter").classList.add("is-open");
+    focusNewsMonthOption(getNewsMonthOptionIndex());
+  }
+
+  function selectNewsMonth(option) {
+    selectedNewsMonth = option.dataset.month;
+    newsMonthFilterValue.textContent = option.textContent;
+    newsMonthOptions.querySelectorAll('[role="option"]').forEach((item) => {
+      item.setAttribute("aria-selected", String(item === option));
+    });
     newsExpanded = false;
+    closeNewsMonthOptions({ restoreFocus: true });
     applyNewsListState();
+  }
+
+  newsMonthFilter.addEventListener("click", () => {
+    if (newsMonthOptions.hidden) openNewsMonthOptions();
+    else closeNewsMonthOptions();
+  });
+
+  newsMonthFilter.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      openNewsMonthOptions();
+    }
+  });
+
+  newsMonthOptions.addEventListener("click", (event) => {
+    const option = event.target.closest('[role="option"]');
+    if (option) selectNewsMonth(option);
+  });
+
+  newsMonthOptions.addEventListener("keydown", (event) => {
+    const options = [...newsMonthOptions.querySelectorAll('[role="option"]')];
+    const currentIndex = options.indexOf(document.activeElement);
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      focusNewsMonthOption(currentIndex + (event.key === "ArrowDown" ? 1 : -1));
+    } else if (event.key === "Home" || event.key === "End") {
+      event.preventDefault();
+      focusNewsMonthOption(event.key === "Home" ? 0 : options.length - 1);
+    } else if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      if (options[currentIndex]) selectNewsMonth(options[currentIndex]);
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      closeNewsMonthOptions({ restoreFocus: true });
+    }
+  });
+
+  newsMonthOptions.addEventListener("focusout", (event) => {
+    if (!newsMonthFilter.closest(".news-filter").contains(event.relatedTarget)) {
+      closeNewsMonthOptions();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!newsMonthFilter.closest(".news-filter").contains(event.target)) {
+      closeNewsMonthOptions();
+    }
   });
 }
 
@@ -1399,4 +1491,79 @@ mapSearchButton?.addEventListener("click", () => {
   );
 
   revealTargets.forEach((element) => observer.observe(element));
+})();
+
+(function setupStatsCounters() {
+  const stats = document.querySelector(".stats");
+  if (!stats) return;
+
+  const counters = [...stats.querySelectorAll("[data-count-to]")].map((element) => {
+    const target = Number(element.dataset.countTo);
+
+    return {
+      element,
+      target,
+      suffix: element.dataset.countSuffix || "",
+      formatter: new Intl.NumberFormat("ru-RU", {
+        useGrouping: element.hasAttribute("data-count-grouped"),
+      }),
+    };
+  });
+
+  const showFinalValues = () => {
+    counters.forEach(({ element, target, suffix, formatter }) => {
+      element.textContent = `${formatter.format(target)}${suffix}`;
+    });
+  };
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (prefersReducedMotion || !counters.length) {
+    showFinalValues();
+    return;
+  }
+
+  stats.classList.add("stats--animated");
+
+  const startCounters = () => {
+    counters.forEach(({ element, target, suffix, formatter }, index) => {
+      const card = element.parentElement;
+      const duration = 2200;
+      const delay = index * 900;
+
+      window.setTimeout(() => {
+        card.classList.add("is-stats-revealed");
+        const startTime = performance.now();
+
+        const update = (now) => {
+          const progress = Math.min(Math.max((now - startTime) / duration, 0), 1);
+          const easedProgress = 1 - (1 - progress) ** 3;
+          const value = Math.round(target * easedProgress);
+
+          element.textContent = `${formatter.format(value)}${suffix}`;
+
+          if (progress < 1) window.requestAnimationFrame(update);
+        };
+
+        window.requestAnimationFrame(update);
+      }, delay);
+    });
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    startCounters();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      startCounters();
+      currentObserver.disconnect();
+    },
+    { threshold: 0.15 },
+  );
+
+  observer.observe(stats);
 })();

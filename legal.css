@@ -1,9 +1,17 @@
+@font-face {
+  font-family: "Museo Sans Cyrl";
+  src: url("museosanscyrl_100.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: "Museo Sans Cyrl", Arial, sans-serif;
   color: #252525;
   background: #f4f5f1;
-  font-synthesis: none;
+  font-synthesis: weight;
   text-rendering: optimizeLegibility;
 }
 
