@@ -4414,8 +4414,7 @@ body.is-kazakh :is(
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 54%;
-  transform: scale(1.5);
+  object-position: center 50%;
 }
 .guests-hero__copy {
   padding: 48px 56px;
@@ -4436,62 +4435,53 @@ body.is-kazakh :is(
 .guests-gallery {
   margin-top: 28px;
   margin-bottom: 60px;
-  padding: 72px 80px 80px;
+  padding: 42px 40px 48px;
   border-radius: 42px;
   background: #fff;
   box-shadow: 0 8px 18px #0002;
 }
-.guests-gallery__heading {
-  margin-bottom: 30px;
-}
-.guests-gallery__heading .eyebrow {
-  color: var(--red);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-.guests-gallery__heading h2 {
-  margin: 12px 0 8px;
-  font-size: clamp(28px, 3.5vw, 40px);
-  line-height: 1.15;
-  letter-spacing: -1px;
-}
-.guests-gallery__heading p {
-  margin: 0;
-  color: #7b7370;
-  font-size: 16px;
-}
 .guest-gallery {
-  column-count: 3;
-  column-gap: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.guest-gallery__column {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
 }
 .guest-gallery__item {
-  display: inline-block;
   width: 100%;
-  margin: 0 0 22px;
+  margin: 0;
   overflow: hidden;
-  break-inside: avoid;
-  border: 1px solid #e4e4e4;
-  border-radius: 18px;
-  background: #fff;
+  border-radius: 12px;
 }
 .guest-gallery__item img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  margin-inline: auto;
   object-fit: cover;
-}
-.guest-gallery__item--wide img {
-  aspect-ratio: 3 / 2;
+  object-position: center;
 }
 .guest-gallery__item--portrait img {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 0.84;
 }
-.guest-gallery__item figcaption {
-  padding: 13px 16px 15px;
-  color: #5e5e5e;
-  font-size: 13px;
-  line-height: 1.4;
+.guest-gallery__item--square img {
+  aspect-ratio: 0.98;
+}
+.guest-gallery__item--landscape img {
+  aspect-ratio: 1.12;
+}
+.guest-gallery__item--caption-crop img {
+  aspect-ratio: 1.05;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.guest-gallery__column:first-child > .guest-gallery__item:last-child img,
+.guest-gallery__column:last-child > .guest-gallery__item:last-child img {
+  aspect-ratio: 1.305;
 }
 .guests-page .footer {
   border-radius: 46px 46px 0 0;
@@ -4504,10 +4494,7 @@ body.is-kazakh :is(
     padding: 38px 40px;
   }
   .guests-gallery {
-    padding: 58px 48px 64px;
-  }
-  .guest-gallery {
-    column-count: 2;
+    padding: 32px 24px 36px;
   }
 }
 @media (max-width: 700px) {
@@ -4528,20 +4515,17 @@ body.is-kazakh :is(
   .guests-gallery {
     margin-top: 18px;
     margin-bottom: 36px;
-    padding: 42px 18px 44px;
+    padding: 24px 8px 30px;
     border-radius: 28px;
   }
-  .guests-gallery__heading {
-    margin-bottom: 22px;
-  }
-  .guests-gallery__heading p {
-    font-size: 14px;
-  }
   .guest-gallery {
-    column-count: 1;
+    gap: 6px;
+  }
+  .guest-gallery__column {
+    gap: 6px;
   }
   .guest-gallery__item {
-    margin-bottom: 16px;
+    border-radius: 8px;
   }
   .guests-page .footer {
     border-radius: 28px 28px 0 0;
