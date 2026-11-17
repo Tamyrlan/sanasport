@@ -315,10 +315,8 @@ function enableKazakhLanguage() {
     card.dataset.price = card.dataset.priceKk;
     card.querySelector("h3").textContent = card.dataset.productKk;
     card.querySelector(".product-image img").alt = card.dataset.productKk;
-    card.querySelector(".product-image span").textContent =
-      card.dataset.categoryKk;
-    card.querySelector(".product-info small").textContent =
-      card.dataset.statusKk;
+    card.querySelector(".product-info strong").textContent =
+      card.dataset.priceKk;
   });
   setText(".shop-modal__content small", "SANA SHOP ТАУАРЫ");
   setText(".shop-modal__content p", "Өлшемді таңдаңыз, тапсырысты растау үшін әкімші сізбен байланысады.");
@@ -644,16 +642,6 @@ function renderShopProducts() {
     throw new Error("Sana Shop product data failed to load.");
   }
 
-  const categoryLabels = {
-    kids: { ru: "Kids", kk: "Балалар" },
-    clothes: { ru: "Одежда", kk: "Киім" },
-    equipment: { ru: "Экипировка", kk: "Жабдық" },
-    souvenirs: { ru: "Сувениры", kk: "Кәдесыйлар" },
-  };
-  const priceLabels =
-    activeLanguage === "kz"
-      ? { price: "Бағасы нақтыланады", status: "Бағасы сұрау бойынша" }
-      : { price: "Цена уточняется", status: "Уточняйте при заказе" };
   const description =
     activeLanguage === "kz"
       ? "Өлшемі, бағасы және бар-жоғын тапсырысты растау кезінде әкімшіден нақтылаңыз."
@@ -661,26 +649,21 @@ function renderShopProducts() {
 
   window.sanaShopProducts.forEach((product) => {
     const grid = document.querySelector(`[data-shop-grid="${product.category}"]`);
-    const labels = categoryLabels[product.category];
     const card = document.createElement("article");
     const imageContainer = document.createElement("div");
     const image = document.createElement("img");
-    const category = document.createElement("span");
     const info = document.createElement("div");
     const title = document.createElement("h3");
     const footer = document.createElement("div");
     const price = document.createElement("strong");
-    const status = document.createElement("small");
 
     card.className = "product-card";
     card.dataset.shopCategory = product.category;
     card.dataset.gallery = (product.gallery || [product.image]).join(",");
     card.dataset.product = product.name;
     card.dataset.productKk = product.kk;
-    card.dataset.price = priceLabels.price;
-    card.dataset.priceKk = "Бағасы нақтыланады";
-    card.dataset.categoryKk = labels.kk;
-    card.dataset.statusKk = "Бағасын нақтылаңыз";
+    card.dataset.price = product.price;
+    card.dataset.priceKk = product.price;
     card.dataset.hasSize = "false";
     card.dataset.descriptionRu = description;
     card.dataset.descriptionKk =
@@ -692,15 +675,12 @@ function renderShopProducts() {
     image.src = `images/sana%20shop/${product.image}.png`;
     image.alt = activeLanguage === "kz" ? product.kk : product.name;
     image.loading = "lazy";
-    category.textContent =
-      activeLanguage === "kz" ? labels.kk : labels.ru;
     info.className = "product-info";
     title.textContent = activeLanguage === "kz" ? product.kk : product.name;
-    footer.append(price, status);
-    price.textContent = priceLabels.price;
-    status.textContent = priceLabels.status;
+    footer.append(price);
+    price.textContent = product.price;
     info.append(title, footer);
-    imageContainer.append(image, category);
+    imageContainer.append(image);
     card.append(imageContainer, info);
     grid.append(card);
   });
