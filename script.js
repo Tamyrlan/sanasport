@@ -75,6 +75,8 @@ function enableKazakhLanguage() {
     "Для родителей": "Ата-аналарға",
     "Аренда": "Жалға алу",
     "Новости": "Жаңалықтар",
+    "Гости": "Қонақтар",
+    "Гости Sana Sport": "Sana Sport қонақтары",
     "Контакты": "Байланыс",
     "Личный кабинет": "Жеке кабинет",
     "Главная": "Басты бет",
@@ -497,12 +499,18 @@ const defaultContent = {
   aboutImage: "images/waitingzone.png",
 };
 
-menuToggle.addEventListener("click", () => nav.classList.toggle("is-open"));
+menuToggle.addEventListener("click", () => {
+  const isOpen = nav.classList.toggle("is-open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Закрыть меню" : "Открыть меню");
+});
 document
   .querySelectorAll(".nav a")
-  .forEach((link) =>
-    link.addEventListener("click", () => nav.classList.remove("is-open")),
-  );
+  .forEach((link) => link.addEventListener("click", () => {
+    nav.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Открыть меню");
+  }));
 
 document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => {
@@ -1439,7 +1447,7 @@ mapSearchButton?.addEventListener("click", () => {
   if (prefersReducedMotion || !("IntersectionObserver" in window)) return;
 
   const revealSelector = [
-    "main > section:not(.shop-catalog)",
+    "main > section:not(.shop-catalog):not(.guests-gallery)",
     "footer.footer",
     ".direction-card",
     ".trainer-grid article",
