@@ -416,7 +416,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   --building-top: 31.5%;
   --building-width: 109.45%;
   --hero-zoom-from: 1.05;
-  --hero-zoom-to: 0.82;
+  --hero-zoom-to: 0.98;
   --hero-slide-from: -8%;
   --hero-slide: 8%;
   --hero-scene-duration: 3.1s;
@@ -1115,6 +1115,16 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .shop-products span + span {
   height: 200px;
 }
+.shop-products img {
+  display: block;
+  width: 145px;
+  height: 160px;
+  border-radius: 18px 18px 0 0;
+  object-fit: cover;
+}
+.shop-products img + img {
+  height: 200px;
+}
 .trainers > p {
   color: var(--muted);
   margin-top: -7px;
@@ -1227,6 +1237,9 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   height: 245px;
   object-fit: cover;
   object-position: center;
+}
+.trainer-grid .trainer-photo {
+  object-position: center 25%;
 }
 .trainer-grid article:hover {
   transform: translateY(-3px);
@@ -1776,7 +1789,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   }
   .hero-shell {
     --hero-zoom-from: 1.05;
-    --hero-zoom-to: 0.9;
+    --hero-zoom-to: 1.02;
     --hero-slide-from: 0%;
     --hero-slide: 4%;
     aspect-ratio: auto;
@@ -1871,6 +1884,13 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
     width: 110px;
   }
   .shop-products span + span {
+    height: 150px;
+  }
+  .shop-products img {
+    width: 110px;
+    height: 120px;
+  }
+  .shop-products img + img {
     height: 150px;
   }
   .tabs {
