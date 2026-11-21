@@ -3842,7 +3842,8 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 .direction-image--piano { background-image: url("directions/домбыра.jpg"); }
 .direction-image--vocal { background-image: url("directions/вокал.jpg"); }
 .direction-image--gym { background-image: url("directions/афк.jpg"); }
-.direction-image--dance { background-image: url("directions/спортивно-бальные танцы.jpg"); }
+.direction-image--dance { background-image: url("images/dance.png"); }
+.direction-card[data-name="Спортивно-бальные танцы"] .direction-card__image { background-image: url("directions/спортивно-бальные танцы.jpg"); }
 .direction-card[data-name="Ballet"] .direction-card__image { background-image: url("directions/балет.jpg"); }
 .parent-image--adults { background-image: url("images/parent1.jpg"); }
 .parent-image--lecture { background-image: url("images/parent2.png"); }

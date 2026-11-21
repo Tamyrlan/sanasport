@@ -732,9 +732,9 @@ const directionImagesByName = {
   "Фортепиано": "directions/домбыра.jpg",
   "Вокал": "directions/вокал.jpg",
   "Художественная гимнастика": "directions/афк.jpg",
-  "Хореография": "directions/спортивно-бальные танцы.jpg",
+  "Хореография": "images/dance.png",
   "Ballet": "directions/балет.jpg",
-  "Choreo Mix": "directions/спортивно-бальные танцы.jpg",
+  "Choreo Mix": "images/dance.png",
   "Спортивно-бальные танцы": "directions/спортивно-бальные танцы.jpg",
 };
 
