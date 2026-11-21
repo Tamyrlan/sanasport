@@ -25,6 +25,10 @@ body {
   font: 400 14px/1.45 var(--display-font);
   background: #f4f4f4;
 }
+body.modal-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 :where(
   .hero h1,
   .about h2,
@@ -1325,6 +1329,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   background: #0008;
   opacity: 0;
   pointer-events: none;
+  overscroll-behavior: contain;
   transition: opacity 250ms var(--ease-out);
 }
 .trainer-modal.is-open {
@@ -1370,6 +1375,7 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
   min-height: 0;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .trainer-modal__content small {
   color: var(--blue);
@@ -3811,32 +3817,33 @@ body.is-kazakh .tab[data-trainer-filter="creative"] {
 }
 
 /* Local photography for all catalogue cards. */
-.direction-image--football { background-image: url("images/football.png"); }
-.direction-image--volley { background-image: url("images/volleyball.png"); }
-.direction-image--basket { background-image: url("images/basketball.png"); }
+.direction-image--football { background-image: url("directions/футбол.jpg"); }
+.direction-image--volley { background-image: url("directions/волейбол.jpg"); }
+.direction-image--basket { background-image: url("directions/баскетбол.jpg"); }
 .direction-image--jiujitsu,
-.direction-image--judo { background-image: url("images/judo.png"); }
-.direction-card[data-name="Джиу-джитсу"] .direction-card__image { background-image: url("images/jiujitsu.png"); }
-.direction-image--chess { background-image: url("images/chess.png"); }
-.direction-image--tennis { background-image: url("images/tennis.png"); }
+.direction-image--judo { background-image: url("directions/дзюдо.jpg"); }
+.direction-card[data-name="Джиу-джитсу"] .direction-card__image { background-image: url("directions/джиу-джитсу.jpg"); }
+.direction-image--chess { background-image: url("directions/шахмат.jpg"); }
+.direction-image--tennis { background-image: url("directions/теннис.jpg"); }
 .direction-image--boxing,
-.direction-image--muay { background-image: url("images/box.png"); }
-.direction-image--karate { background-image: url("images/karate.png"); }
-.direction-image--taekwondo { background-image: url("images/taekwondo.png"); }
+.direction-image--muay { background-image: url("directions/бокс.jpg"); }
+.direction-image--karate { background-image: url("directions/карате.jpg"); }
+.direction-image--taekwondo { background-image: url("directions/тхэквондо.jpg"); }
 .direction-image--robotics { background-image: url("images/robotics.png"); }
-.direction-image--english { background-image: url("images/english.png"); }
-.direction-image--school { background-image: url("images/daycare.png"); }
-.direction-image--preschool { background-image: url("images/preschool.png"); }
-.direction-image--kazakh { background-image: url("images/kazakh.png"); }
+.direction-image--english { background-image: url("directions/англ язык.jpg"); }
+.direction-image--school { background-image: url("directions/дошколка.jpg"); }
+.direction-image--preschool { background-image: url("directions/подготовка к школе.jpg"); }
+.direction-image--kazakh { background-image: url("directions/казахский язык.jpg"); }
 .direction-image--ai { background-image: url("images/ai.png"); }
-.direction-image--drawing { background-image: url("images/art.png"); }
-.direction-image--cooking { background-image: url("images/cooking.png"); }
-.direction-image--workshop { background-image: url("images/enbek.png"); }
-.direction-image--dombra { background-image: url("images/dombyra.png"); }
-.direction-image--piano { background-image: url("images/piano.png"); }
-.direction-image--vocal { background-image: url("images/vocal.png"); }
-.direction-image--gym { background-image: url("images/gymnastics.png"); }
-.direction-image--dance { background-image: url("images/dance.png"); }
+.direction-image--drawing { background-image: url("directions/рисование.jpg"); }
+.direction-image--cooking { background-image: url("directions/жас аспаз.jpg"); }
+.direction-image--workshop { background-image: url("directions/енбек.jpg"); }
+.direction-image--dombra { background-image: url("directions/домбыра.jpg"); }
+.direction-image--piano { background-image: url("directions/домбыра.jpg"); }
+.direction-image--vocal { background-image: url("directions/вокал.jpg"); }
+.direction-image--gym { background-image: url("directions/афк.jpg"); }
+.direction-image--dance { background-image: url("directions/спортивно-бальные танцы.jpg"); }
+.direction-card[data-name="Ballet"] .direction-card__image { background-image: url("directions/балет.jpg"); }
 .parent-image--adults { background-image: url("images/parent1.jpg"); }
 .parent-image--lecture { background-image: url("images/parent2.png"); }
 .parent-image--nutrition { background-image: url("images/parent3.png"); }

@@ -709,35 +709,61 @@ const directionPriceAmounts = [
   "18 000", "18 000", "18 000", "18 000", "18 000", "20 000",
   "20 000", "20 000", "20 000", "20 000",
 ];
-const directionImagePaths = [
-  "images/football.png", "images/volleyball.png", "images/basketball.png",
-  "images/jiujitsu.png", "images/chess.png", "images/tennis.png",
-  "images/box.png", "images/judo.png", "images/karate.png", "images/box.png",
-  "images/taekwondo.png", "images/robotics.png", "images/english.png",
-  "images/daycare.png", "images/preschool.png", "images/kazakh.png",
-  "images/ai.png", "images/art.png", "images/cooking.png", "images/enbek.png",
-  "images/dombyra.png", "images/piano.png", "images/vocal.png",
-  "images/gymnastics.png", "images/dance.png",
-];
+const directionImagesByName = {
+  "Футбол": "directions/футбол.jpg",
+  "Волейбол": "directions/волейбол.jpg",
+  "Баскетбол": "directions/баскетбол.jpg",
+  "Джиу-джитсу": "directions/джиу-джитсу.jpg",
+  "Шахматы": "directions/шахмат.jpg",
+  "Настольный теннис": "directions/теннис.jpg",
+  "Бокс": "directions/бокс.jpg",
+  "Дзюдо": "directions/дзюдо.jpg",
+  "Карате": "directions/карате.jpg",
+  "Муай-тай": "directions/бокс.jpg",
+  "Тхэквондо": "directions/тхэквондо.jpg",
+  "Английский язык": "directions/англ язык.jpg",
+  "Группы продленного дня": "directions/дошколка.jpg",
+  "Подготовка к школе": "directions/подготовка к школе.jpg",
+  "Казахский язык": "directions/казахский язык.jpg",
+  "Рисование": "directions/рисование.jpg",
+  "Жас аспаз": "directions/жас аспаз.jpg",
+  "Мастерская Еңбек": "directions/енбек.jpg",
+  "Домбыра": "directions/домбыра.jpg",
+  "Фортепиано": "directions/домбыра.jpg",
+  "Вокал": "directions/вокал.jpg",
+  "Художественная гимнастика": "directions/афк.jpg",
+  "Хореография": "directions/спортивно-бальные танцы.jpg",
+  "Ballet": "directions/балет.jpg",
+  "Choreo Mix": "directions/спортивно-бальные танцы.jpg",
+  "Спортивно-бальные танцы": "directions/спортивно-бальные танцы.jpg",
+};
 
 directionCards.forEach((card, index) => {
-  card.dataset.image = directionImagePaths[index] ?? card.dataset.image;
+  card.dataset.image = directionImagesByName[card.dataset.name] ?? card.dataset.image;
   card.dataset.price = directionPriceAmounts[index] ?? "";
 });
 
+let openModalCount = 0;
+
 function openModal(modal) {
   if (!modal) return;
+  if (!modal.classList.contains("is-open")) openModalCount += 1;
   modal.classList.remove("is-closing");
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
 }
 
 function closeModal(modal) {
   if (!modal || !modal.classList.contains("is-open")) return;
 
+  openModalCount = Math.max(0, openModalCount - 1);
   modal.classList.remove("is-open");
   modal.classList.add("is-closing");
   modal.setAttribute("aria-hidden", "true");
+  if (openModalCount === 0) {
+    document.body.classList.remove("modal-open");
+  }
   modal.addEventListener(
     "transitionend",
     (event) => {
