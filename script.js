@@ -594,7 +594,7 @@ if (adminForm) {
 
   document
     .querySelector("#admin-open")
-    .addEventListener("click", () => setAdminOpen(true));
+    ?.addEventListener("click", () => setAdminOpen(true));
   document
     .querySelector("#admin-close")
     .addEventListener("click", () => setAdminOpen(false));
